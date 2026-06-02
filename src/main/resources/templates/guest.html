@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Seguirte360 · Modo Invitado</title>
+<link rel="stylesheet" href="/css/seguirte.css">
+<style>
+.guest-hero {
+  text-align: center;
+  padding: 60px 24px 40px;
+}
+.guest-hero h1 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 36px;
+  margin: 20px 0 8px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.guest-hero p { color: var(--text2); max-width: 360px; margin: 0 auto 32px; }
+.features-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  max-width: 500px; margin: 0 auto 32px;
+}
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.feature-card:hover { transform: translateY(-4px); }
+.feature-icon { font-size: 36px; margin-bottom: 10px; }
+.feature-name { font-weight: 800; font-size: 14px; }
+.feature-desc { font-size: 12px; color: var(--text3); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="auth-page" style="align-items:flex-start;padding-top:0">
+  <div style="width:100%;max-width:560px;margin:0 auto">
+    <div class="guest-hero">
+      <div class="mascot-wrap">
+        <div class="mascot">🦉</div>
+      </div>
+      <h1>¡Explora sin cuenta!</h1>
+      <p>Descubre todo lo que Seguirte360 tiene para ti. Crea una cuenta para guardar tu progreso.</p>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <a href="/register" class="btn btn-green">🚀 Crear cuenta gratis</a>
+        <a href="/login" class="btn btn-ghost">Iniciar sesión</a>
+      </div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-name">Misiones diarias</div>
+        <div class="feature-desc">Retos aleatorios cada día para tu bienestar</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">Sistema de XP</div>
+        <div class="feature-desc">Gana experiencia por cada logro</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔥</div>
+        <div class="feature-name">Rachas diarias</div>
+        <div class="feature-desc">Mantén tu consistencia y sube de liga</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👩‍🏫</div>
+        <div class="feature-name">Panel docente</div>
+        <div class="feature-desc">Herramientas para educadores comprometidos</div>
+      </div>
+    </div>
+
+    <!-- Preview missions -->
+    <div style="padding:0 24px 40px">
+      <div style="font-family:'Fredoka One',cursive;font-size:18px;margin-bottom:12px;text-align:center">
+        🎯 Muestra de misiones de hoy
+      </div>
+      <div id="guestMissions"></div>
+      <div style="text-align:center;margin-top:16px;color:var(--text3);font-size:13px;font-weight:700">
+        Crea tu cuenta para completarlas y ganar XP ✨
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/seguirte.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  initParticles();
+  // Show sample missions (read-only)
+  const missions=getDailyMissions().slice(0,3);
+  const wrap=document.getElementById('guestMissions');
+  missions.forEach(m=>{
+    const card=document.createElement('div');
+    card.className='mission-card';
+    card.style.opacity='0.6';
+    card.innerHTML=`
+      <div class="mission-icon" style="background:${m.color}22;color:${m.color}">${m.icon}</div>
+      <div class="mission-info">
+        <div class="mission-name">${m.name}</div>
+        <div class="mission-desc">${m.desc}</div>
+        <div class="mission-prog"><div class="mission-prog-fill" style="width:0%;background:${m.color}"></div></div>
+        <div class="mission-xp">⚡ +${m.xp} XP</div>
+      </div>
+      <div style="font-size:20px;opacity:0.5">🔒</div>
+    `;
+    wrap.appendChild(card);
+  });
+});
+</script>
+</body>
+</html>

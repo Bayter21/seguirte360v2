@@ -1,0 +1,1 @@
+package com.seguirte360.repo;import org.springframework.data.jpa.repository.JpaRepository;import com.seguirte360.model.Usuario;public interface UsuarioRepo extends JpaRepository<Usuario,Long>{Usuario findByUsername(String u);}

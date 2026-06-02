@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Seguirte360 · Panel Docente</title>
+<link rel="stylesheet" href="/css/seguirte.css">
+<style>
+:root {
+  --teacher-accent: #1CB0F6;
+  --teacher-accent2: #CE82FF;
+}
+.teacher-sidebar .sidebar-logo .logo-icon {
+  background: linear-gradient(135deg,var(--teacher-accent),var(--teacher-accent2));
+}
+.teacher-sidebar .nav-link.active {
+  background: rgba(28,176,246,0.15); color: var(--teacher-accent);
+}
+.teacher-sidebar .nav-link.active::before { background: var(--teacher-accent); }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+.top-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.ts-card {
+  background: var(--card2); border-radius: var(--radius); padding: 20px;
+  border: 1px solid var(--border); position:relative; overflow:hidden;
+  transition: transform 0.2s ease;
+}
+.ts-card:hover { transform: translateY(-3px); }
+.ts-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+.ts-card.blue::before { background:var(--teacher-accent); }
+.ts-card.green::before { background:var(--green); }
+.ts-card.yellow::before { background:var(--yellow); }
+.ts-card.purple::before { background:var(--teacher-accent2); }
+.ts-val { font-family:'Fredoka One',cursive; font-size:38px; }
+.ts-lbl { font-size:12px; color:var(--text3); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+.ts-icon { position:absolute; right:16px; top:16px; font-size:32px; opacity:0.3; }
+.ts-change { font-size:11px; font-weight:700; margin-top:4px; }
+.ts-change.up { color:var(--green); }
+.ts-change.down { color:var(--red); }
+/* Chart bars */
+.chart-bar-wrap { display:flex; align-items:flex-end; gap:6px; height:120px; padding:0 4px; }
+.chart-bar {
+  flex:1; border-radius:6px 6px 0 0;
+  background: linear-gradient(to top, var(--teacher-accent), rgba(28,176,246,0.3));
+  transition: height 1s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative; min-height:6px; cursor:pointer;
+}
+.chart-bar:hover { filter:brightness(1.2); }
+.chart-bar-label { font-size:10px; text-align:center; color:var(--text3); font-weight:700; }
+/* Emotion chart */
+.emo-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.emo-bar-row:last-child { margin-bottom:0; }
+.emo-bar-label { width:80px; font-size:13px; font-weight:700; }
+.emo-bar-track { flex:1; background:var(--bg3); border-radius:99px; height:12px; overflow:hidden; }
+.emo-bar-fill { height:100%; border-radius:99px; transition: width 1s ease; }
+.emo-bar-pct { width:36px; font-size:12px; font-weight:700; color:var(--text3); text-align:right; }
+/* Student table */
+.student-row { cursor:pointer; }
+.student-row:hover td { background:rgba(28,176,246,0.05); }
+.stu-avatar {
+  width:34px;height:34px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:18px;
+  background:linear-gradient(135deg,var(--teacher-accent),var(--teacher-accent2));
+}
+.xp-mini-bar { background:var(--bg3); border-radius:99px; height:8px; overflow:hidden; min-width:80px; }
+.xp-mini-fill { height:100%; border-radius:99px; background:var(--green); transition:width 1s ease; }
+.risk-badge {
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 10px; border-radius:99px; font-size:11px; font-weight:800;
+}
+.risk-ok { background:rgba(88,204,2,0.15); color:var(--green); }
+.risk-warn { background:rgba(255,217,0,0.15); color:var(--yellow); }
+.risk-alert { background:rgba(255,75,75,0.15); color:var(--red); }
+/* Tab bar */
+.tab-bar {
+  display:flex; gap:4px;
+  background:var(--bg3); border-radius:var(--radius); padding:4px;
+  margin-bottom:20px;
+}
+.tab-item {
+  flex:1; padding:10px 8px; border-radius:12px;
+  border:none; background:none; color:var(--text2);
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:13px;
+  cursor:pointer; transition:all 0.2s; text-align:center;
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+/* ── TOP STATS: responsive grid ── */
+.top-stats {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+@media (max-width:1100px) { .top-stats { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px)  { .top-stats { grid-template-columns:1fr 1fr; gap:10px; } }
+
+.ts-card {
+  background: var(--card2);
+  border-radius: var(--radius);
+  padding: 16px 14px 14px;
+  border: 1px solid var(--border);
+  position:relative; overflow:hidden;
+  transition: transform 0.2s ease;
+  min-width:0;
+}
+.ts-card:hover { transform: translateY(-3px); }
+.ts-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
+.ts-card.blue::before   { background:var(--teacher-accent); }
+.ts-card.green::before  { background:var(--green); }
+.ts-card.yellow::before { background:var(--yellow); }
+.ts-card.purple::before { background:var(--teacher-accent2); }
+
+.ts-val {
+  font-family:'Fredoka One',cursive;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height:1.1;
+  word-break:break-all;
+}
+.ts-lbl {
+  font-size:11px; color:var(--text3); font-weight:700;
+  text-transform:uppercase; letter-spacing:0.5px;
+  margin-top:4px;
+}
+.ts-icon {
+  position:absolute; right:12px; top:12px;
+  font-size:26px; opacity:0.2;
+}
+.ts-change { font-size:10px; font-weight:700; margin-top:4px; }
+.ts-change.up   { color:var(--green); }
+.ts-change.down { color:var(--red); }
+
+/* ── CHART BARS ── */
+.chart-bar-wrap {
+  display:flex; align-items:flex-end; gap:5px;
+  height:110px; padding:0 2px;
+  overflow:hidden;
+}
+.chart-bar {
+  flex:1; border-radius:5px 5px 0 0; min-width:0;
+  background: linear-gradient(to top, var(--teacher-accent), rgba(28,176,246,0.3));
+  transition: height 1s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative; min-height:4px; cursor:pointer;
+}
+.chart-bar:hover { filter:brightness(1.2); }
+.chart-bar-label {
+  font-size:9px; text-align:center;
+  color:var(--text3); font-weight:700;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  min-width:0;
+}
+
+/* ── EMOTION BARS ── */
+.emo-bar-row { display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+.emo-bar-row:last-child { margin-bottom:0; }
+.emo-bar-label { width:90px; font-size:12px; font-weight:700; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.emo-bar-track { flex:1; background:var(--bg3); border-radius:99px; height:11px; overflow:hidden; min-width:0; }
+.emo-bar-fill { height:100%; border-radius:99px; transition: width 1s ease; }
+.emo-bar-pct { width:32px; font-size:11px; font-weight:700; color:var(--text3); text-align:right; flex-shrink:0; }
+
+/* ── STUDENT TABLE ── */
+.student-row { cursor:pointer; }
+.student-row:hover td { background:rgba(28,176,246,0.05); }
+.stu-avatar {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:16px;
+  background:linear-gradient(135deg,var(--teacher-accent),var(--teacher-accent2));
+}
+.xp-mini-bar { background:var(--bg3); border-radius:99px; height:7px; overflow:hidden; min-width:60px; }
+.xp-mini-fill { height:100%; border-radius:99px; background:var(--green); transition:width 1s ease; }
+.risk-badge {
+  display:inline-flex; align-items:center; gap:3px;
+  padding:3px 8px; border-radius:99px; font-size:11px; font-weight:800;
+  white-space:nowrap;
+}
+.risk-ok    { background:rgba(88,204,2,0.15); color:var(--green); }
+.risk-warn  { background:rgba(255,217,0,0.15); color:var(--yellow); }
+.risk-alert { background:rgba(255,75,75,0.15);  color:var(--red); }
+
+/* ── TAB BAR ── */
+.tab-bar {
+  display:flex; gap:3px;
+  background:var(--bg3); border-radius:var(--radius); padding:4px;
+  margin-bottom:18px; overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.tab-bar::-webkit-scrollbar { display:none; }
+.tab-item {
+  flex:1; min-width:max-content;
+  padding:9px 10px; border-radius:11px;
+  border:none; background:none; color:var(--text2);
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:12px;
+  cursor:pointer; transition:all 0.2s; text-align:center;
+  white-space:nowrap;
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+}
+.tab-item.active { background:var(--card); color:var(--text); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; animation:slide-up 0.3s ease; }
+@keyframes slide-up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+/* Alert students */
+.alert-student {
+  display:flex;align-items:center;gap:12px;
+  padding:12px;border-radius:var(--radius);
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+
+/* ── ALERT STUDENTS ── */
+.alert-student {
+  display:flex; align-items:center; gap:10px;
+  padding:11px; border-radius:var(--radius);
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+  background:rgba(255,75,75,0.08);
+  border:1px solid rgba(255,75,75,0.2);
+  margin-bottom:8px;
+}
+.alert-student:last-child { margin-bottom:0; }
+
+<<<<<<< HEAD
+/* ── CONTACT MODAL ── */
+=======
+<<<<<<< HEAD
+/* Contact modal */
+=======
+/* ── CONTACT MODAL ── */
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.75); z-index:999;
+  align-items:center; justify-content:center;
+<<<<<<< HEAD
+  padding:16px;
+=======
+<<<<<<< HEAD
+=======
+  padding:16px;
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+}
+.modal-overlay.open { display:flex; }
+.modal-box {
+  background:var(--card); border-radius:var(--radius-lg);
+<<<<<<< HEAD
+  padding:24px; width:100%; max-width:360px;
+=======
+<<<<<<< HEAD
+  padding:28px; width:380px; max-width:90vw;
+=======
+  padding:24px; width:100%; max-width:360px;
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+  border:1px solid var(--border);
+}
+.contact-info-row {
+  display:flex; align-items:center; gap:10px;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  padding:10px 14px; border-radius:10px;
+  background:var(--bg3); border:1px solid var(--border);
+  margin-bottom:8px; font-size:14px;
+}
+.contact-info-label { font-size:11px; color:var(--text3); font-weight:700; margin-bottom:4px; }
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+  padding:10px 12px; border-radius:10px;
+  background:var(--bg3); border:1px solid var(--border);
+  margin-bottom:8px; font-size:13px;
+}
+.contact-info-label { font-size:10px; color:var(--text3); font-weight:700; margin-bottom:3px; }
+
+/* ── TABLE WRAP siempre scrollable ── */
+.table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; width:100%; }
+.table-wrap table { min-width:520px; }
+
+/* ── GRID responsive en panel docente ── */
+@media (max-width:900px) {
+  .teacher-grid-2 { grid-template-columns:1fr !important; }
+}
+@media (max-width:600px) {
+  .ts-val { font-size:20px; }
+  .ts-icon { font-size:20px; }
+  .tab-item { font-size:11px; padding:8px 8px; }
+}
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar teacher-sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🦉</div>
+      <span>Seguirte360</span>
+    </div>
+    <div class="nav-section-label">Panel Docente</div>
+    <a href="/teacher" class="nav-link active">
+      <span class="icon">📊</span> Resumen
+    </a>
+    <a href="#" class="nav-link" onclick="switchTab('alumnos');return false;">
+      <span class="icon">👥</span> Mis Alumnos
+      <span class="nav-badge" id="alertCount">0</span>
+    </a>
+    <a href="#" class="nav-link" onclick="switchTab('emociones');return false;">
+      <span class="icon">💭</span> Emociones
+    </a>
+    <a href="#" class="nav-link" onclick="switchTab('progreso');return false;">
+      <span class="icon">📈</span> Progreso
+    </a>
+    <div class="nav-section-label">Acciones</div>
+    <a href="#" class="nav-link" onclick="generateReport();return false;">
+      <span class="icon">📥</span> Exportar reporte
+    </a>
+    <a href="#" class="nav-link" onclick="switchTab('alertas');return false;">
+      <span class="icon">🚨</span> Alertas
+      <span class="nav-badge" id="alertCountSide">0</span>
+    </a>
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="avatar-sm">👩‍🏫</div>
+        <div class="user-chip-info">
+          <div class="user-chip-name">Docente</div>
+          <div class="user-chip-role">Panel Educativo</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <a href="/dashboard" class="btn btn-ghost" style="flex:1;padding:10px;font-size:12px">🎒 Mi perfil</a>
+        <a href="/logout" class="btn btn-ghost" style="flex:1;padding:10px;font-size:12px">Salir</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+  <main class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">👩‍🏫 Panel Docente</div>
+      <div class="stat-pill" style="background:rgba(28,176,246,0.12);color:var(--blue);border:1.5px solid rgba(28,176,246,0.25)">
+        📅 <span id="todayDate"></span>
+      </div>
+    </div>
+
+    <!-- Teacher header -->
+    <div class="teacher-header">
+      <div class="teacher-avatar">👩‍🏫</div>
+      <div class="teacher-info">
+        <h2>¡Bienvenida, Profesora!</h2>
+        <p>Tienes <strong id="alertStudents" style="color:var(--red)">0</strong> alumnos que necesitan atención hoy</p>
+      </div>
+      <button class="btn btn-blue" onclick="generateReport()">
+        📊 Generar reporte
+      </button>
+    </div>
+
+    <!-- Top stats -->
+    <div class="top-stats">
+      <div class="ts-card blue">
+        <div class="ts-icon">👥</div>
+        <div class="ts-val" id="totalStudents">—</div>
+        <div class="ts-lbl">Alumnos activos</div>
+        <div class="ts-change up">▲ 2 esta semana</div>
+      </div>
+      <div class="ts-card green">
+        <div class="ts-icon">⚡</div>
+        <div class="ts-val" id="avgXP">—</div>
+        <div class="ts-lbl">XP promedio</div>
+        <div class="ts-change up">▲ +12% vs semana pasada</div>
+      </div>
+      <div class="ts-card yellow">
+        <div class="ts-icon">🔥</div>
+        <div class="ts-val" id="avgStreak">—</div>
+        <div class="ts-lbl">Racha promedio</div>
+        <div class="ts-change up">▲ +1 día</div>
+      </div>
+      <div class="ts-card purple">
+        <div class="ts-icon">💜</div>
+        <div class="ts-val" id="moodScore">—</div>
+        <div class="ts-lbl">Índice bienestar</div>
+        <div class="ts-change up">▲ +0.3 pts</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <button class="tab-item active" onclick="switchTab('resumen')">📊 Resumen</button>
+      <button class="tab-item" onclick="switchTab('alumnos')">👥 Alumnos</button>
+      <button class="tab-item" onclick="switchTab('emociones')">💭 Emociones</button>
+      <button class="tab-item" onclick="switchTab('progreso')">📈 Progreso</button>
+      <button class="tab-item" onclick="switchTab('alertas')">🚨 Alertas</button>
+    </div>
+
+    <!-- TAB: RESUMEN -->
+    <div class="tab-panel active" id="tab-resumen">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <div class="grid-2" style="gap:20px">
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">📈 XP por día (esta semana)</div>
+          <div class="chart-bar-wrap" id="xpChart"></div>
+          <div style="display:flex;gap:6px;margin-top:6px" id="xpChartLabels"></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">💭 Estado de ánimo general</div>
+          <div id="moodChart"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:20px;margin-top:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="font-weight:800">🎯 Misiones completadas hoy</div>
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+      <div class="grid-2 teacher-grid-2" style="gap:16px">
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">📈 XP por día (esta semana)</div>
+          <div class="chart-bar-wrap" id="xpChart"></div>
+          <div style="display:flex;gap:4px;margin-top:6px" id="xpChartLabels"></div>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">💭 Estado de ánimo general</div>
+          <div id="moodChart"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px;margin-top:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+          <div style="font-weight:800;font-size:14px">🎯 Misiones completadas hoy</div>
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+          <div style="font-size:13px;color:var(--text3)">
+            <span id="missionsNum">—</span>/<span id="missionsTot">—</span>
+          </div>
+        </div>
+<<<<<<< HEAD
+        <div style="background:var(--bg3);border-radius:99px;height:10px;overflow:hidden">
+=======
+<<<<<<< HEAD
+        <div style="background:var(--bg3);border-radius:99px;height:12px;overflow:hidden">
+=======
+        <div style="background:var(--bg3);border-radius:99px;height:10px;overflow:hidden">
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+          <div id="missionsFill" style="height:100%;border-radius:99px;background:var(--green);width:0%;transition:width 1s ease"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: ALUMNOS -->
+    <div class="tab-panel" id="tab-alumnos">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <div class="card" style="padding:20px">
+        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+          <input class="form-input" id="searchInput" placeholder="🔍 Buscar alumno..." oninput="filterStudents()" style="flex:1;min-width:150px">
+          <select class="form-input" id="filterRisk" onchange="filterStudents()" style="width:140px">
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+      <div class="card" style="padding:18px">
+        <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+          <input class="form-input" id="searchInput" placeholder="🔍 Buscar alumno..." oninput="filterStudents()" style="flex:1;min-width:140px">
+          <select class="form-input" id="filterRisk" onchange="filterStudents()" style="width:130px">
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+            <option value="">Todos</option>
+            <option value="ok">✅ Bien</option>
+            <option value="warn">⚠️ Atención</option>
+            <option value="alert">🚨 Alerta</option>
+          </select>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          <span style="font-size:12px;color:var(--text3);align-self:center;font-weight:700">
+            <span id="studentCount">—</span> alumnos
+          </span>
+        </div>
+        <div style="overflow-x:auto">
+          <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase;letter-spacing:0.5px">
+                <th style="padding:8px;text-align:left">#</th>
+                <th style="padding:8px;text-align:left">Alumno</th>
+                <th style="padding:8px;text-align:left">Nivel</th>
+                <th style="padding:8px;text-align:left">XP</th>
+                <th style="padding:8px;text-align:left">Racha</th>
+                <th style="padding:8px;text-align:left">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody">
+              <!-- from Thymeleaf -->
+              <tr th:each="s,i : ${students}" class="student-row">
+                <td style="padding:8px;font-family:'Fredoka One',cursive;font-size:14px" th:text="${i.index+1}">1</td>
+                <td style="padding:8px">
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+          <span style="font-size:12px;color:var(--text3);font-weight:700;white-space:nowrap">
+            <span id="studentCount">—</span> alumnos
+          </span>
+        </div>
+        <div class="table-wrap">
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase;letter-spacing:0.5px">
+                <th style="padding:6px 8px;text-align:left">#</th>
+                <th style="padding:6px 8px;text-align:left">Alumno</th>
+                <th style="padding:6px 8px;text-align:left">Nivel</th>
+                <th style="padding:6px 8px;text-align:left">XP</th>
+                <th style="padding:6px 8px;text-align:left">Racha</th>
+                <th style="padding:6px 8px;text-align:left">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody">
+              <tr th:each="s,i : ${students}" class="student-row">
+                <td style="padding:6px 8px;font-family:'Fredoka One',cursive;font-size:14px" th:text="${i.index+1}">1</td>
+                <td style="padding:6px 8px">
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div class="stu-avatar" th:text="${s.avatar}?:' '">🦊</div>
+                    <span style="font-weight:800" th:text="${s.username}">Alumno</span>
+                  </div>
+                </td>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                <td style="padding:8px;color:var(--blue);font-weight:800" th:text="${s.nivel}">1</td>
+                <td style="padding:8px;color:var(--yellow);font-weight:800" th:text="${s.puntos}+' XP'">0 XP</td>
+                <td style="padding:8px;color:var(--orange)">🔥 <span th:text="${s.streak}">0</span></td>
+                <td style="padding:8px">
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+                <td style="padding:6px 8px;color:var(--blue);font-weight:800" th:text="${s.nivel}">1</td>
+                <td style="padding:6px 8px;color:var(--yellow);font-weight:800" th:text="${s.puntos}+' XP'">0 XP</td>
+                <td style="padding:6px 8px;color:var(--orange)">🔥 <span th:text="${s.streak}">0</span></td>
+                <td style="padding:6px 8px">
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+                  <span th:class="${s.streak>=5?'risk-badge risk-ok':s.streak>=2?'risk-badge risk-warn':'risk-badge risk-alert'}"
+                        th:text="${s.streak>=5?'✅ Bien':s.streak>=2?'⚠️ Atención':'🚨 Alerta'}">✅ Bien</span>
+                </td>
+              </tr>
+            </tbody>
+<<<<<<< HEAD
+          </table>
+=======
+<<<<<<< HEAD
+          </table></div></div>
+=======
+          </table>
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: EMOCIONES -->
+    <div class="tab-panel" id="tab-emociones">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <div class="grid-2" style="gap:20px">
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">📊 Distribución de emociones</div>
+          <div id="emoDistChart"></div>
+        </div>
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">📋 Registro reciente</div>
+          <div style="overflow-x:auto">
+            <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
+                  <th style="padding:8px;text-align:left">Alumno</th>
+                  <th style="padding:8px;text-align:left">Emoción</th>
+                  <th style="padding:8px;text-align:left">Fecha</th>
+                  <th style="padding:8px;text-align:left">Tendencia</th>
+                </tr>
+              </thead>
+              <tbody id="emotionLogBody">
+                <!-- from Thymeleaf -->
+                <tr th:each="e : ${emotions}">
+                  <td style="padding:8px;font-weight:700" th:text="${e.usuario?.username}">—</td>
+                  <td style="padding:8px" th:text="${e.type}">—</td>
+                  <td style="padding:8px;font-size:12px;color:var(--text3)" th:text="${e.fecha}">—</td>
+                  <td style="padding:8px">→</td>
+                </tr>
+              </tbody>
+            </table></div></div>
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+      <div class="grid-2 teacher-grid-2" style="gap:16px">
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">📊 Distribución de emociones</div>
+          <div id="emoDistChart"></div>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">📋 Registro reciente</div>
+          <div class="table-wrap">
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
+                  <th style="padding:6px 8px;text-align:left">Alumno</th>
+                  <th style="padding:6px 8px;text-align:left">Emoción</th>
+                  <th style="padding:6px 8px;text-align:left">Fecha</th>
+                  <th style="padding:6px 8px;text-align:left">Tend.</th>
+                </tr>
+              </thead>
+              <tbody id="emotionLogBody">
+                <tr th:each="e : ${emotions}">
+                  <td style="padding:6px 8px;font-weight:700" th:text="${e.usuario?.username}">—</td>
+                  <td style="padding:6px 8px" th:text="${e.type}">—</td>
+                  <td style="padding:6px 8px;font-size:11px;color:var(--text3)" th:text="${e.fecha}">—</td>
+                  <td style="padding:6px 8px">→</td>
+                </tr>
+              </tbody>
+            </table>
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: PROGRESO -->
+    <div class="tab-panel" id="tab-progreso">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <div class="grid-2" style="gap:20px">
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">🏅 Top alumnos por XP</div>
+          <div style="overflow-x:auto">
+            <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
+                  <th style="padding:8px">#</th>
+                  <th style="padding:8px;text-align:left">Alumno</th>
+                  <th style="padding:8px;text-align:left">Nivel</th>
+                  <th style="padding:8px;text-align:left">XP</th>
+                  <th style="padding:8px;text-align:left">Racha</th>
+                  <th style="padding:8px;text-align:left">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="topStudentsBody"></tbody>
+            </table></div></div>
+          </div>
+        </div>
+        <div class="card" style="padding:20px">
+          <div style="font-weight:800;margin-bottom:14px">📊 Nivel por alumno</div>
+          <div class="chart-bar-wrap" id="levelChart" style="height:160px"></div>
+          <div style="display:flex;gap:6px;margin-top:6px" id="levelChartLabels"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:20px;margin-top:20px">
+        <div style="font-weight:800;margin-bottom:14px">🏆 Distribución de ligas</div>
+=======
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+      <div class="grid-2 teacher-grid-2" style="gap:16px">
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">🏅 Top alumnos por XP</div>
+          <div class="table-wrap">
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
+                  <th style="padding:6px 8px">#</th>
+                  <th style="padding:6px 8px;text-align:left">Alumno</th>
+                  <th style="padding:6px 8px;text-align:left">Niv.</th>
+                  <th style="padding:6px 8px;text-align:left">XP</th>
+                  <th style="padding:6px 8px;text-align:left">Racha</th>
+                  <th style="padding:6px 8px;text-align:left">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="topStudentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card" style="padding:18px">
+          <div style="font-weight:800;margin-bottom:12px;font-size:14px">📊 Nivel por alumno</div>
+          <div class="chart-bar-wrap" id="levelChart" style="height:140px"></div>
+          <div style="display:flex;gap:4px;margin-top:6px" id="levelChartLabels"></div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px;margin-top:16px">
+        <div style="font-weight:800;margin-bottom:12px;font-size:14px">🏆 Distribución de ligas</div>
+<<<<<<< HEAD
+=======
+>>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+        <div id="leagueChart"></div>
+      </div>
+    </div>
+
+    <!-- TAB: ALERTAS -->
+    <div class="tab-panel" id="tab-alertas">
+      <div class="card" style="padding:20px;margin-bottom:16px">
+        <div style="font-weight:800;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:8px">
+          🚨 Alumnos que necesitan atención
+        </div>
+        <div id="alertStudentsList">
+          <!-- rendered by JS / Thymeleaf -->
+          <div th:each="s : ${studentsAlert}" class="alert-student">
+            <div class="stu-avatar" th:text="${s.avatar}?:' '">🌻</div>
+            <div style="flex:1">
+              <div style="font-weight:800" th:text="${s.username}">Alumno</div>
+              <div style="font-size:12px;color:var(--text3)">
+                Sin actividad · Nivel <span th:text="${s.nivel}">1</span> · <span th:text="${s.puntos}">0</span> XP
+              </div>
+              <div th:if="${s.telefono}" style="font-size:12px;color:var(--blue);margin-top:2px">
+                📱 <span th:text="${s.telefono}">—</span>
+              </div>
+            </div>
+            <button class="btn btn-danger" style="padding:8px 14px;font-size:12px"
+                    th:onclick="'showContact(\''+s.username+'\',\''+s.nivel+'\',\''+s.puntos+'\',\''+${s.telefono}?:''+'\')'">
+              Contactar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding:20px">
+        <div style="font-weight:800;color:var(--yellow);margin-bottom:12px">⚠️ Alumnos con actividad baja</div>
+        <div id="inactiveList">
+          <p style="color:var(--text3);font-size:14px;padding:20px;text-align:center">Cargando...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-box">
+    <div style="font-size:28px;margin-bottom:10px">📞</div>
+    <h2 style="font-family:'Fredoka One',cursive;font-size:20px;margin-bottom:6px">Datos de contacto</h2>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:16px">Información del alumno para contacto</p>
+    <div id="contactDetails">
+      <div class="contact-info-row">
+        <span style="font-size:20px">👤</span>
+        <div>
+          <div class="contact-info-label">Nombre de usuario</div>
+          <div id="contactName" style="font-weight:800"></div>
+        </div>
+      </div>
+      <div class="contact-info-row">
+        <span style="font-size:20px">🏅</span>
+        <div>
+          <div class="contact-info-label">Nivel · XP</div>
+          <div id="contactLevel" style="font-weight:700"></div>
+        </div>
+      </div>
+      <div class="contact-info-row" id="contactPhoneRow">
+        <span style="font-size:20px">📱</span>
+        <div>
+          <div class="contact-info-label">Número de celular</div>
+          <div id="contactPhone" style="font-weight:800;color:var(--blue)"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-blue btn-full" style="margin-top:20px" onclick="closeContact()">Cerrar</button>
+  </div>
+</div>
+
+<script src="/js/seguirte.js"></script>
+<script>
+// ── TEACHER AUTH CHECK ──
+// If arrived without going through teacher login modal, redirect
+(function(){
+  const auth = sessionStorage.getItem('teacher_auth');
+  if(!auth){
+    // Check URL param as fallback (for direct server-side auth)
+    // If no auth, show auth prompt
+    const modal = document.createElement('div');
+    modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center';
+    modal.innerHTML=`
+      <div style="background:var(--card);border-radius:20px;padding:36px;width:360px;border:1px solid var(--border);text-align:center">
+        <div style="font-size:48px;margin-bottom:12px">🔐</div>
+        <h2 style="font-family:'Fredoka One',cursive;font-size:22px;margin-bottom:6px">Acceso Docente</h2>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:20px">Solo docentes pueden acceder a este panel.</p>
+        <div style="text-align:left">
+          <label style="font-size:12px;font-weight:800;color:var(--text3)">USUARIO</label>
+          <input id="_tlU" class="form-input" type="text" placeholder="usuario_docente" style="margin-bottom:10px">
+          <label style="font-size:12px;font-weight:800;color:var(--text3)">CONTRASEÑA</label>
+          <input id="_tlP" class="form-input" type="password" placeholder="••••••••">
+        </div>
+        <div id="_tlErr" style="display:none;color:var(--red);font-size:12px;font-weight:700;margin-top:8px">❌ Credenciales incorrectas</div>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <button class="btn btn-blue" style="flex:1" onclick="
+            if(document.getElementById('_tlU').value==='docente' && document.getElementById('_tlP').value==='seguirte360'){
+              sessionStorage.setItem('teacher_auth','1');
+              this.closest('div[style]').remove();
+            } else {
+              document.getElementById('_tlErr').style.display='block';
+            }
+          ">Entrar</button>
+          <a href="/dashboard" class="btn btn-ghost" style="flex:1">Volver</a>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+})();
+
+// ── MOCK DATA ──
+const MOCK_STUDENTS=[
+  {name:'AmigoFeliz',  nivel:5, puntos:892, streak:12, mood:'GREEN',  avatar:'🐯', phone:'310 456 7890'},
+  {name:'Exploradora', nivel:4, puntos:745, streak:8,  mood:'GREEN',  avatar:'🦋', phone:'315 987 6543'},
+  {name:'Valiente99',  nivel:3, puntos:612, streak:5,  mood:'YELLOW', avatar:'🦁', phone:'320 111 2233'},
+  {name:'PasoArtista', nivel:2, puntos:500, streak:2,  mood:'GREEN',  avatar:'🐧', phone:'311 444 5566'},
+  {name:'SolBrillante',nivel:1, puntos:120, streak:0,  mood:'RED',    avatar:'🌻', phone:'300 777 8899'},
+  {name:'LunaMágica',  nivel:2, puntos:230, streak:1,  mood:'YELLOW', avatar:'🌙', phone:'318 222 3344'},
+];
+
+const WEEK_DAYS=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const XP_DATA=[42,78,55,92,67,33,80];
+const MOOD_DATA=[
+  {label:'😊 Genial',   pct:45, color:'var(--green)'},
+  {label:'😐 Normal',   pct:30, color:'var(--yellow)'},
+  {label:'😟 Triste',   pct:15, color:'var(--blue)'},
+  {label:'😴 Cansado',  pct:7,  color:'var(--purple)'},
+  {label:'🤩 Increíble',pct:3,  color:'var(--orange)'},
+];
+
+function switchTab(name){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name)?.classList.add('active');
+  const labels={resumen:'Resumen',alumnos:'Alumnos',emociones:'Emociones',progreso:'Progreso',alertas:'Alertas'};
+  document.querySelectorAll('.tab-item').forEach(b=>{
+    if(b.textContent.includes(labels[name])) b.classList.add('active');
+  });
+  playClick();
+}
+
+function buildXPChart(){
+  const wrap=document.getElementById('xpChart');
+  const labls=document.getElementById('xpChartLabels');
+  if(!wrap) return;
+  const maxV=Math.max(...XP_DATA);
+  XP_DATA.forEach((v,i)=>{
+    const bar=document.createElement('div');
+    bar.className='chart-bar'; bar.style.height='0px';
+    bar.title=WEEK_DAYS[i]+': '+v+' XP'; wrap.appendChild(bar);
+    setTimeout(()=>{ bar.style.height=Math.round((v/maxV)*100)+'px'; },300+i*60);
+    const lbl=document.createElement('div');
+    lbl.className='chart-bar-label'; lbl.style.flex='1'; lbl.textContent=WEEK_DAYS[i];
+    labls.appendChild(lbl);
+  });
+}
+
+function buildMoodChart(){
+  const wrap=document.getElementById('moodChart'); if(!wrap) return;
+  MOOD_DATA.forEach(m=>{
+    const row=document.createElement('div'); row.className='emo-bar-row';
+    row.innerHTML=`<div class="emo-bar-label" style="font-size:12px">${m.label}</div><div class="emo-bar-track"><div class="emo-bar-fill" style="width:0%;background:${m.color}" data-pct="${m.pct}"></div></div><div class="emo-bar-pct">${m.pct}%</div>`;
+    wrap.appendChild(row);
+    setTimeout(()=>{ row.querySelector('.emo-bar-fill').style.width=m.pct+'%'; },400);
+  });
+}
+
+function buildEmoDistChart(){
+  const wrap=document.getElementById('emoDistChart'); if(!wrap) return;
+  MOOD_DATA.forEach(m=>{
+    const row=document.createElement('div'); row.className='emo-bar-row';
+    row.innerHTML=`<div class="emo-bar-label" style="font-size:12px">${m.label}</div><div class="emo-bar-track"><div class="emo-bar-fill" style="width:0%;background:${m.color}"></div></div><div class="emo-bar-pct">${m.pct}%</div>`;
+    wrap.appendChild(row);
+    setTimeout(()=>{ row.querySelector('.emo-bar-fill').style.width=m.pct+'%'; },400);
+  });
+}
+
+function buildTopStudents(){
+  const tbody=document.getElementById('topStudentsBody'); if(!tbody) return;
+  const rows=MOCK_STUDENTS.sort((a,b)=>b.puntos-a.puntos).slice(0,5);
+  const medals=['🥇','🥈','🥉','4','5'];
+  rows.forEach((s,i)=>{
+    const risk=s.streak>=5?'risk-ok':s.streak>=2?'risk-warn':'risk-alert';
+    const riskLabel=s.streak>=5?'✅ Bien':s.streak>=2?'⚠️ Atención':'🚨 Alerta';
+    const tr=document.createElement('tr'); tr.className='student-row';
+    tr.innerHTML=`
+      <td style="padding:8px"><span style="font-family:'Fredoka One',cursive;font-size:16px">${medals[i]}</span></td>
+      <td style="padding:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="stu-avatar">${s.avatar}</div>
+          <span style="font-weight:800">${s.name}</span>
+        </div>
+      </td>
+      <td style="padding:8px;color:var(--blue);font-weight:800">${s.nivel}</td>
+      <td style="padding:8px;color:var(--yellow);font-weight:800">${s.puntos} XP</td>
+      <td style="padding:8px;color:var(--orange)">🔥 ${s.streak} días</td>
+      <td style="padding:8px"><span class="risk-badge ${risk}">${riskLabel}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildLevelChart(){
+  const wrap=document.getElementById('levelChart');
+  const labls=document.getElementById('levelChartLabels');
+  if(!wrap) return;
+  const data=MOCK_STUDENTS.map(s=>s.nivel);
+  const names=MOCK_STUDENTS.map(s=>s.name.split(' ')[0]);
+  const maxV=Math.max(...data,1);
+  data.forEach((v,i)=>{
+    const bar=document.createElement('div'); bar.className='chart-bar';
+    bar.style.cssText=`height:0;flex:1;border-radius:6px 6px 0 0;background:linear-gradient(to top,var(--teacher-accent2),rgba(206,130,255,0.3));transition:height 1s cubic-bezier(0.34,1.56,0.64,1);min-height:6px;`;
+    bar.title=names[i]+': Nivel '+v; wrap.appendChild(bar);
+    setTimeout(()=>{ bar.style.height=Math.round((v/maxV)*100)+'%'; },300+i*80);
+    const lbl=document.createElement('div'); lbl.className='chart-bar-label'; lbl.style.flex='1'; lbl.textContent=names[i];
+    labls.appendChild(lbl);
+  });
+}
+
+function buildLeagueChart(){
+  const wrap=document.getElementById('leagueChart'); if(!wrap) return;
+  const leagues=[
+    {label:'🥇 Oro',count:3,color:'var(--yellow)'},
+    {label:'🥈 Plata',count:2,color:'#C0C0C0'},
+    {label:'🥉 Bronce',count:1,color:'#CD7F32'},
+  ];
+  leagues.forEach(l=>{
+    const row=document.createElement('div'); row.className='emo-bar-row';
+    const total=6; const pct=Math.round((l.count/total)*100);
+    row.innerHTML=`<div class="emo-bar-label" style="font-size:12px">${l.label}</div><div class="emo-bar-track"><div class="emo-bar-fill" style="width:0%;background:${l.color}"></div></div><div class="emo-bar-pct" style="color:${l.color}">${l.count}</div>`;
+    wrap.appendChild(row);
+    setTimeout(()=>{ row.querySelector('.emo-bar-fill').style.width=pct+'%'; },400);
+  });
+}
+
+function buildEmotionLog(){
+  // Filled server-side via Thymeleaf; add mock fallback if empty
+  const tbody=document.getElementById('emotionLogBody');
+  if(!tbody || tbody.children.length>0) return;
+  const entries=[
+    {name:'AmigoFeliz',emo:'😊 Genial',fecha:'Hoy, 10:23',trend:'▲'},
+    {name:'Exploradora',emo:'🤩 Increíble',fecha:'Hoy, 09:45',trend:'▲'},
+    {name:'Valiente99',emo:'😐 Normal',fecha:'Hoy, 11:02',trend:'→'},
+    {name:'SolBrillante',emo:'😟 Triste',fecha:'Ayer, 16:30',trend:'▼'},
+    {name:'LunaMágica',emo:'😴 Cansado',fecha:'Ayer, 14:10',trend:'▼'},
+  ];
+  entries.forEach(e=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="padding:8px;font-weight:700">${e.name}</td><td style="padding:8px">${e.emo}</td><td style="padding:8px;color:var(--text3);font-size:12px">${e.fecha}</td><td style="padding:8px;color:${e.trend==='▲'?'var(--green)':e.trend==='▼'?'var(--red)':'var(--text3)'};font-weight:700">${e.trend}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildAlerts(){
+  const alertList=document.getElementById('alertStudentsList');
+  const inactiveList=document.getElementById('inactiveList');
+  const alerts=MOCK_STUDENTS.filter(s=>s.streak===0);
+  const warnings=MOCK_STUDENTS.filter(s=>s.streak>0&&s.streak<3);
+
+  // Only add mock students if there are no Thymeleaf-rendered ones
+  const hasServerAlerts=alertList && alertList.querySelector('.alert-student');
+
+  if(alertList && !hasServerAlerts){
+    if(alerts.length===0){
+      alertList.innerHTML='<p style="color:var(--green);padding:16px;font-weight:700">✅ Ningún alumno en estado crítico</p>';
+    } else {
+      alertList.innerHTML='';
+      alerts.forEach(s=>{
+        const div=document.createElement('div'); div.className='alert-student';
+        div.innerHTML=`
+          <div class="stu-avatar">${s.avatar}</div>
+          <div style="flex:1">
+            <div style="font-weight:800">${s.name}</div>
+            <div style="font-size:12px;color:var(--text3)">Sin actividad · Nivel ${s.nivel} · ${s.puntos} XP</div>
+            <div style="font-size:12px;color:var(--blue);margin-top:2px">📱 ${s.phone}</div>
+          </div>
+          <button class="btn btn-danger" style="padding:8px 14px;font-size:12px" onclick="showContact('${s.name}','${s.nivel}','${s.puntos}','${s.phone}')">
+            Contactar
+          </button>
+        `;
+        alertList.appendChild(div);
+      });
+    }
+  }
+
+  if(inactiveList){
+    inactiveList.innerHTML='';
+    warnings.forEach(s=>{
+      const div=document.createElement('div');
+      div.style.cssText='display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:rgba(255,217,0,0.08);border:1px solid rgba(255,217,0,0.2);margin-bottom:8px';
+      div.innerHTML=`
+        <div class="stu-avatar">${s.avatar}</div>
+        <div style="flex:1">
+          <div style="font-weight:800">${s.name}</div>
+          <div style="font-size:12px;color:var(--text3)">Streak bajo: ${s.streak} día(s)</div>
+          <div style="font-size:12px;color:var(--blue);margin-top:2px">📱 ${s.phone}</div>
+        </div>
+        <button class="btn btn-warning" style="padding:6px 12px;font-size:12px;background:rgba(255,217,0,0.2);color:var(--yellow);border:1.5px solid rgba(255,217,0,0.4)" onclick="showContact('${s.name}','${s.nivel}','${s.puntos}','${s.phone}')">Contactar</button>
+      `;
+      inactiveList.appendChild(div);
+    });
+    if(warnings.length===0) inactiveList.innerHTML='<p style="color:var(--green);padding:16px;font-weight:700">✅ Todos los alumnos activos</p>';
+  }
+
+  const alertN=alerts.length;
+  document.getElementById('alertCount').textContent=alertN;
+  document.getElementById('alertCountSide').textContent=alertN;
+  document.getElementById('alertStudents').textContent=alertN;
+}
+
+function buildMissionsStats(){
+  const total=MOCK_STUDENTS.length*4;
+  const done=Math.floor(total*0.6);
+  document.getElementById('missionsNum').textContent=done;
+  document.getElementById('missionsTot').textContent=total;
+  setTimeout(()=>{
+    const fill=document.getElementById('missionsFill');
+    if(fill) fill.style.width=Math.round((done/total)*100)+'%';
+  },400);
+}
+
+function buildTopStudentsTable(){
+  // fill studentsBody with mock if empty (Thymeleaf may have filled it)
+  const tbody=document.getElementById('studentsBody');
+  if(tbody && tbody.children.length===0){
+    MOCK_STUDENTS.sort((a,b)=>b.puntos-a.puntos).forEach((s,i)=>{
+      const risk=s.streak>=5?'risk-ok':s.streak>=2?'risk-warn':'risk-alert';
+      const riskLabel=s.streak>=5?'✅ Bien':s.streak>=2?'⚠️ Atención':'🚨 Alerta';
+      const tr=document.createElement('tr'); tr.className='student-row';
+      tr.innerHTML=`
+        <td style="padding:8px;font-family:'Fredoka One',cursive;font-size:14px">${i+1}</td>
+        <td style="padding:8px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="stu-avatar">${s.avatar}</div>
+            <span style="font-weight:800">${s.name}</span>
+          </div>
+        </td>
+        <td style="padding:8px;color:var(--blue);font-weight:800">${s.nivel}</td>
+        <td style="padding:8px;color:var(--yellow);font-weight:800">${s.puntos} XP</td>
+        <td style="padding:8px;color:var(--orange)">🔥 ${s.streak} días</td>
+        <td style="padding:8px"><span class="risk-badge ${risk}">${riskLabel}</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+  document.getElementById('studentCount').textContent=document.querySelectorAll('#studentsBody tr').length;
+}
+
+// ── CONTACT MODAL ──
+function showContact(name, nivel, puntos, phone){
+  document.getElementById('contactName').textContent=name;
+  document.getElementById('contactLevel').textContent='Nivel '+nivel+' · '+puntos+' XP';
+  const phoneEl=document.getElementById('contactPhone');
+  const phoneRow=document.getElementById('contactPhoneRow');
+  if(phone && phone.trim()){
+    phoneEl.textContent=phone;
+    phoneRow.style.display='flex';
+  } else {
+    phoneRow.style.display='none';
+    phoneEl.textContent='No registrado';
+  }
+  document.getElementById('contactModal').classList.add('open');
+  playClick();
+}
+function closeContact(){
+  document.getElementById('contactModal').classList.remove('open');
+}
+
+// ── GENERATE REPORT (Excel/CSV download) ──
+function generateReport(){
+  const today = new Date().toLocaleDateString('es-CO');
+  const data = MOCK_STUDENTS.map(s=>({
+    'Alumno': s.name,
+    'Nivel': s.nivel,
+    'XP Total': s.puntos,
+    'Racha (días)': s.streak,
+    'Estado ánimo': s.mood === 'GREEN' ? 'Genial' : s.mood === 'YELLOW' ? 'Normal' : s.mood === 'RED' ? 'Mal' : s.mood === 'BLUE' ? 'Cansado' : 'Increíble',
+    'Estado': s.streak >= 5 ? 'Bien' : s.streak >= 2 ? 'Atención' : 'Alerta',
+    'Teléfono': s.phone,
+    'Fecha reporte': today,
+  }));
+  exportToExcel(data, 'reporte_seguirte360_'+today.replace(/\//g,'-')+'.csv');
+}
+
+function filterStudents(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const risk=document.getElementById('filterRisk').value;
+  const rows=document.querySelectorAll('#studentsBody tr');
+  let visible=0;
+  rows.forEach(r=>{
+    const name=r.querySelector('td:nth-child(2)')?.textContent.toLowerCase()||'';
+    const badge=r.querySelector('.risk-badge')?.textContent.toLowerCase()||'';
+    const matchName=!q||name.includes(q);
+    const matchRisk=!risk||
+      (risk==='ok'&&badge.includes('bien'))||
+      (risk==='warn'&&badge.includes('atención'))||
+      (risk==='alert'&&badge.includes('alerta'));
+    r.style.display=matchName&&matchRisk?'':'none';
+    if(matchName&&matchRisk) visible++;
+  });
+  document.getElementById('studentCount').textContent=visible;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  initParticles();
+  document.getElementById('todayDate').textContent=new Date().toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+
+  // Stats
+  document.getElementById('totalStudents').textContent=MOCK_STUDENTS.length+'+';
+  const avgXP=Math.round(MOCK_STUDENTS.reduce((a,s)=>a+s.puntos,0)/MOCK_STUDENTS.length);
+  document.getElementById('avgXP').textContent=avgXP;
+  const avgSt=Math.round(MOCK_STUDENTS.reduce((a,s)=>a+s.streak,0)/MOCK_STUDENTS.length);
+  document.getElementById('avgStreak').textContent=avgSt+' días';
+  document.getElementById('moodScore').textContent='7.8';
+
+  buildXPChart();
+  buildMoodChart();
+  buildTopStudents();
+  buildEmotionLog();
+  buildEmoDistChart();
+  buildLevelChart();
+  buildLeagueChart();
+  buildAlerts();
+  buildMissionsStats();
+  buildTopStudentsTable();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Seguirte360 · Iniciar Sesión</title>
+<link rel="stylesheet" href="/css/seguirte.css">
+<style>
+.auth-bg-shapes {
+  position: fixed; inset: 0; pointer-events: none; overflow: hidden;
+}
+.shape {
+  position: absolute; border-radius: 50%; opacity: 0.06;
+  animation: shape-float 8s ease-in-out infinite;
+}
+.shape:nth-child(1){ width:400px;height:400px; background:var(--green); top:-100px; left:-100px; animation-delay:0s; }
+.shape:nth-child(2){ width:300px;height:300px; background:var(--blue); bottom:-80px; right:-80px; animation-delay:-4s; }
+.shape:nth-child(3){ width:200px;height:200px; background:var(--purple); top:50%; left:60%; animation-delay:-2s; }
+@keyframes shape-float{
+  0%,100%{ transform:translateY(0) scale(1); }
+  50%    { transform:translateY(-30px) scale(1.05); }
+}
+.role-selector {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 24px;
+}
+.role-btn {
+  padding: 16px 12px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--bg3);
+  cursor: pointer; text-align: center;
+  transition: all 0.2s ease;
+  color: var(--text2);
+}
+.role-btn:hover { border-color: var(--green); color: var(--text); }
+.role-btn.active { border-color: var(--green); background: rgba(88,204,2,0.1); color: var(--green); }
+.role-btn .role-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+.role-btn .role-label { font-weight: 800; font-size: 13px; }
+.role-btn .role-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.guest-link {
+  display: block; text-align: center; margin-top: 16px;
+  color: var(--text3); font-size: 13px; text-decoration: none; font-weight: 700;
+  transition: color 0.2s;
+}
+.guest-link:hover { color: var(--blue); }
+.error-msg {
+  background: rgba(255,75,75,0.12);
+  border: 1px solid rgba(255,75,75,0.3);
+  border-radius: 12px; padding: 12px 16px;
+  color: var(--red); font-size: 13px; font-weight: 700;
+  margin-bottom: 20px; display: none;
+}
+.error-msg.show { display: flex; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="auth-bg-shapes">
+  <div class="shape"></div><div class="shape"></div><div class="shape"></div>
+</div>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">🦉</div>
+      <h1>Seguirte360</h1>
+      <p>Tu compañero de bienestar diario</p>
+    </div>
+
+    <!-- Role selector -->
+    <div class="role-selector" id="roleSelector">
+      <div class="role-btn active" data-role="student" onclick="selectRole('student')">
+        <span class="role-icon">🎒</span>
+        <div class="role-label">Estudiante</div>
+        <div class="role-sub">Aprende y crece</div>
+      </div>
+      <div class="role-btn" data-role="teacher" onclick="selectRole('teacher')">
+        <span class="role-icon">👩‍🏫</span>
+        <div class="role-label">Docente</div>
+        <div class="role-sub">Guía a tus alumnos</div>
+      </div>
+    </div>
+
+    <!-- Error message -->
+<<<<<<< HEAD
+    <div class="error-msg" id="errorMsg" th:if="${param.error}">
+      ⚠️ <span>Usuario o contraseña incorrectos</span>
+    </div>
+    <div th:if="${param.error}" th:text="''" id="hasError" style="display:none">true</div>
+=======
+    <div class="error-msg" id="errorMsg" th:if="${error}">
+      ⚠️ <span>Usuario o contraseña incorrectos</span>
+    </div>
+    <div th:if="${error}" th:text="''" id="hasError" style="display:none">true</div>
+>>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
+
+    <form th:action="@{/login}" method="post">
+      <div class="form-group">
+        <label class="form-label">Usuario</label>
+        <input class="form-input" type="text" name="username" placeholder="Tu nombre de usuario" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input class="form-input" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <input type="hidden" name="role" id="roleInput" value="student">
+      <button type="submit" class="btn btn-green btn-full" style="margin-top:8px">
+        <span>🚀</span> Ingresar
+      </button>
+    </form>
+
+    <div class="auth-divider">o</div>
+
+    <a href="/register" class="btn btn-ghost btn-full" style="margin-bottom:8px">
+      <span>✏️</span> Crear cuenta
+    </a>
+    <a href="/guest" class="guest-link">Continuar sin cuenta →</a>
+  </div>
+</div>
+
+<script src="/js/seguirte.js"></script>
+<script>
+function selectRole(role){
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`[data-role="${role}"]`).classList.add('active');
+  document.getElementById('roleInput').value=role;
+  playClick();
+}
+// Show error if login failed
+if(document.getElementById('hasError')){
+  document.getElementById('errorMsg').classList.add('show');
+  playError();
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  initParticles();
+  // entrance animation for form groups
+  document.querySelectorAll('.form-group').forEach((g,i)=>{
+    g.style.opacity='0'; g.style.transform='translateY(16px)';
+    setTimeout(()=>{
+      g.style.transition='all 0.3s ease';
+      g.style.opacity='1'; g.style.transform='translateY(0)';
+    },500+i*100);
+  });
+});
+</script>
+</body>
+</html>

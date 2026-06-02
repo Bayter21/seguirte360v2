@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Seguirte360 · Dashboard</title>
+<link rel="stylesheet" href="/css/seguirte.css">
+<style>
+.level-ring-wrap {
+  display:flex; align-items:center; justify-content:center;
+  position:relative; width:110px; height:110px; flex-shrink:0;
+}
+.level-ring-text { position:absolute; text-align:center; }
+.level-ring-text .lvl-num { font-family:'Fredoka One',cursive; font-size:28px; line-height:1; }
+.level-ring-text .lvl-label { font-size:10px; font-weight:800; color:var(--text3); letter-spacing:1px; text-transform:uppercase; }
+.hero-card {
+  background: linear-gradient(135deg, rgba(88,204,2,0.12), rgba(28,176,246,0.08));
+  border: 1px solid rgba(88,204,2,0.25);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.hero-card::before {
+  content:'';
+  position:absolute; top:-60px; right:-60px;
+  width:200px; height:200px;
+  background: radial-gradient(circle, rgba(88,204,2,0.15), transparent 70%);
+  border-radius:50%;
+}
+.hero-info { flex:1; }
+.hero-greeting { font-size:13px; color:var(--text3); font-weight:700; margin-bottom:4px; }
+.hero-name { font-family:'Fredoka One',cursive; font-size:26px; margin-bottom:8px; }
+.hero-xp-label { font-size:11px; color:var(--text3); font-weight:700; margin-bottom:6px; }
+.quick-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.qs-card {
+  flex:1; min-width:100px;
+  background: var(--card2); border-radius: var(--radius); padding: 16px;
+  border: 1px solid var(--border); text-align:center;
+  transition: transform 0.2s ease;
+}
+.qs-card:hover { transform: translateY(-3px); }
+.qs-val { font-family:'Fredoka One',cursive; font-size:28px; display:block; margin-bottom:2px; }
+.qs-lbl { font-size:11px; color:var(--text3); font-weight:700; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.section-title { font-family:'Fredoka One',cursive; font-size:18px; display:flex; align-items:center; gap:8px; }
+.see-all {
+  font-size:12px; font-weight:800; color:var(--blue); text-decoration:none;
+  padding:4px 10px; border-radius:8px; background:rgba(28,176,246,0.1);
+  transition: background 0.2s;
+}
+.see-all:hover { background:rgba(28,176,246,0.2); }
+
+/* ── EMOTION SECTION ── */
+.emotion-section {
+  background: var(--card2); border-radius: var(--radius-lg);
+  padding: 24px; border: 1px solid var(--border); margin-bottom: 24px;
+}
+.emotion-question { font-weight:800; font-size:16px; margin-bottom:16px; }
+.emotions-row { display:flex; gap:10px; flex-wrap:wrap; }
+.emo-btn {
+  background: var(--bg3); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+  cursor: pointer; text-align:center; transition: all 0.2s ease;
+  flex:1; min-width:70px;
+}
+.emo-btn:hover:not(:disabled) { transform:scale(1.1); }
+.emo-btn:disabled { opacity:0.45; cursor:not-allowed; transform:none !important; }
+.emo-btn.selected {
+  border-color: var(--green); background: rgba(88,204,2,0.15);
+  box-shadow: 0 0 0 3px rgba(88,204,2,0.2);
+}
+.emo-btn .emo-icon { font-size:28px; display:block; }
+.emo-btn .emo-name { font-size:11px; font-weight:700; color:var(--text2); margin-top:4px; }
+.emo-done-msg {
+  font-size:13px; color:var(--text3); font-weight:700;
+  text-align:center; margin-top:12px; padding:8px;
+  background:rgba(88,204,2,0.08); border-radius:10px;
+}
+
+/* ── SUBMENU NAV SECTIONS ── */
+.page-view { display:none; }
+.page-view.active { display:block; animation: slide-up 0.3s ease; }
+@keyframes slide-up { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* Leaderboard */
+.leaderboard-row {
+  display:flex; align-items:center; gap:12px;
+  padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.leaderboard-row:last-child { border-bottom:none; }
+.lb-rank { width:28px; text-align:center; font-family:'Fredoka One',cursive; font-size:15px; color:var(--text3); flex-shrink:0; }
+.lb-rank.gold { color:var(--yellow); }
+.lb-rank.silver { color:#C0C0C0; }
+.lb-rank.bronze { color:#CD7F32; }
+.lb-avatar {
+  width:36px;height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.lb-name { flex:1; font-weight:700; font-size:14px; }
+.lb-xp { font-family:'Fredoka One',cursive; color:var(--yellow); font-size:14px; }
+.lb-you { border:1.5px solid var(--green); border-radius:12px; padding:10px 12px; }
+
+/* Week calendar */
+.week-day-cell {
+  flex:1; aspect-ratio:1; border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-size:11px;font-weight:800;
+  transition: all 0.3s ease;
+}
+
+.alert-banner {
+  background: rgba(255,75,75,0.1); border: 1.5px solid rgba(255,75,75,0.25);
+  border-radius: var(--radius); padding: 14px 16px;
+  color: var(--red); font-weight:700; font-size:14px;
+  margin-bottom:20px; display:flex; align-items:center; gap:10px;
+}
+
+/* Notifications panel */
+.notif-item {
+  display:flex; align-items:center; gap:12px;
+  padding:12px; border-radius: var(--radius);
+  background: var(--bg3); border: 1px solid var(--border);
+  margin-bottom:8px;
+}
+.notif-dot { width:10px;height:10px;border-radius:50%;background:var(--blue);flex-shrink:0; }
+.notif-dot.unread { background:var(--green); }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🦉</div>
+      <span>Seguirte360</span>
+    </div>
+    <div class="nav-section-label">Principal</div>
+    <a href="#" class="nav-link active" onclick="showPage('inicio',this)">
+      <span class="icon">🏠</span> Inicio
+    </a>
+    <a href="#" class="nav-link" onclick="showPage('misiones',this)">
+      <span class="icon">🎯</span> Misiones
+      <span class="nav-badge" id="missionsCount">4</span>
+    </a>
+    <a href="#" class="nav-link" onclick="showPage('logros',this)">
+      <span class="icon">🏆</span> Logros
+    </a>
+    <div class="nav-section-label">Social</div>
+    <a href="#" class="nav-link" onclick="showPage('ranking',this)">
+      <span class="icon">📊</span> Ranking
+    </a>
+    <a href="#" class="nav-link" onclick="showPage('amigos',this)">
+      <span class="icon">👥</span> Amigos
+    </a>
+    <a href="#" class="nav-link" onclick="showPage('notificaciones',this)">
+      <span class="icon">🔔</span> Notificaciones
+      <span class="nav-badge" id="notifBadge" style="display:none">0</span>
+    </a>
+    <div class="sidebar-bottom">
+      <div class="user-chip">
+        <div class="avatar-sm" id="sidebarAvatar">🦊</div>
+        <div class="user-chip-info">
+          <div class="user-chip-name" th:text="${user.username}">Usuario</div>
+          <div class="user-chip-role">Estudiante</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <a href="/logout" class="btn btn-ghost" style="flex:1;padding:10px;font-size:12px">Salir 🚪</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HAMBURGER -->
+  <div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- BOTTOM NAV (mobile only) -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bottom-nav-item active" id="bn-inicio" onclick="navigateTo('inicio')">
+      <span class="bn-icon">🏠</span>Inicio
+    </button>
+    <button class="bottom-nav-item" id="bn-misiones" onclick="navigateTo('misiones')">
+      <span class="bn-icon">🎯</span>Misiones
+    </button>
+    <button class="bottom-nav-item" id="bn-logros" onclick="navigateTo('logros')">
+      <span class="bn-icon">🏆</span>Logros
+    </button>
+    <button class="bottom-nav-item" id="bn-ranking" onclick="navigateTo('ranking')">
+      <span class="bn-icon">📊</span>Ranking
+    </button>
+    <button class="bottom-nav-item" id="bn-notifs" onclick="navigateTo('notificaciones')">
+      <span class="bn-icon">🔔</span>Alertas
+      <span class="bn-badge" id="bnBadge" style="display:none">3</span>
+    </button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">🌟 Mi espacio</div>
+      <div class="stat-pill xp">⚡ <span th:text="${user.puntos}" data-xp-display>0</span> XP</div>
+      <div class="stat-pill streak">🔥 <span id="streakTopbar">0</span></div>
+      <div class="stat-pill hearts">❤️ 5</div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert-banner" id="riskAlert" style="display:none">⚠️ Riesgo — Este estudiante reportó sentirse mal hoy.</div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: INICIO                    -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view active" id="page-inicio">
+
+      <!-- Hero card -->
+      <div class="hero-card">
+        <div class="level-ring-wrap">
+          <svg width="110" height="110" class="progress-ring">
+            <circle cx="55" cy="55" r="48" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="8"/>
+            <circle cx="55" cy="55" r="48" fill="none" stroke="var(--green)" stroke-width="8"
+                    stroke-linecap="round" class="progress-ring-circle" id="levelRing"/>
+          </svg>
+          <div class="level-ring-text">
+            <div class="lvl-num" th:text="${user.nivel}">1</div>
+            <div class="lvl-label">Nivel</div>
+          </div>
+        </div>
+        <div class="hero-info">
+          <div class="hero-greeting">¡Hola de vuelta!</div>
+          <div class="hero-name" th:text="${user.username}">Usuario</div>
+          <div class="hero-xp-label">XP al siguiente nivel</div>
+          <div class="xp-bar-wrap">
+            <div class="xp-bar-fill" id="heroXpBar" th:data-pct="${(user.puntos % 100)}" style="width:0%"></div>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px">
+            <span th:text="${user.puntos % 100}">0</span>/100 XP
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick stats -->
+      <div class="quick-stats">
+        <div class="qs-card">
+          <span class="qs-val" style="color:var(--orange)">🔥 <span id="streakCard">0</span></span>
+          <div class="qs-lbl">Días seguidos</div>
+        </div>
+        <div class="qs-card">
+          <span class="qs-val" style="color:var(--yellow)">⚡ <span th:text="${user.puntos}" data-xp-display>0</span></span>
+          <div class="qs-lbl">Total XP</div>
+        </div>
+        <div class="qs-card">
+          <span class="qs-val" style="color:var(--green)">🏅 <span th:text="${user.nivel}">1</span></span>
+          <div class="qs-lbl">Nivel actual</div>
+        </div>
+        <div class="qs-card" id="leagueCard">
+          <span class="qs-val">🥇</span>
+          <div class="qs-lbl">Liga Oro</div>
+        </div>
+      </div>
+
+      <!-- Emotion: solo 1 vez por día (24h) -->
+      <div class="emotion-section">
+        <div class="emotion-question">¿Cómo te sientes hoy? 💭</div>
+        <div class="emotions-row" id="emotionsRow">
+          <button type="button" class="emo-btn" data-type="GREEN" data-xp="20" onclick="handleEmo(this)">
+            <span class="emo-icon">😊</span>
+            <span class="emo-name">Genial</span>
+          </button>
+          <button type="button" class="emo-btn" data-type="YELLOW" data-xp="10" onclick="handleEmo(this)">
+            <span class="emo-icon">😐</span>
+            <span class="emo-name">Normal</span>
+          </button>
+          <button type="button" class="emo-btn" data-type="RED" data-xp="5" onclick="handleEmo(this)">
+            <span class="emo-icon">😟</span>
+            <span class="emo-name">Mal</span>
+          </button>
+          <button type="button" class="emo-btn" data-type="BLUE" data-xp="5" onclick="handleEmo(this)">
+            <span class="emo-icon">😴</span>
+            <span class="emo-name">Cansado</span>
+          </button>
+          <button type="button" class="emo-btn" data-type="PURPLE" data-xp="15" onclick="handleEmo(this)">
+            <span class="emo-icon">🤩</span>
+            <span class="emo-name">Increíble</span>
+          </button>
+        </div>
+        <div id="emoDoneMsg" style="display:none" class="emo-done-msg">
+          ✅ Ya registraste tu estado de ánimo hoy. Vuelve mañana.
+        </div>
+      </div>
+
+      <!-- Week calendar -->
+      <div style="margin-bottom:24px">
+        <div class="section-title" style="margin-bottom:14px">📅 Tu semana</div>
+        <div class="card">
+          <div style="display:flex;gap:8px;justify-content:space-between">
+            <div id="weekCalendar" style="display:flex;gap:8px;flex:1"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher panel link -->
+      <div style="margin-top:8px;text-align:center">
+        <button class="btn btn-ghost" style="font-size:13px" onclick="showTeacherLogin()">
+          👩‍🏫 Panel docente
+        </button>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: MISIONES                  -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view" id="page-misiones">
+      <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:14px">
+        <span style="font-size:12px;color:var(--text3);font-weight:700" id="missionsProgress">0/4 completadas</span>
+      </div>
+      <div id="missionsContainer"></div>
+    </div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: LOGROS                    -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view" id="page-logros">
+      <div class="section-header" style="margin-bottom:14px">
+        <div class="section-title">🏆 Logros</div>
+      </div>
+      <div class="card" style="padding:16px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <div class="avatar-option" title="Primer día" style="font-size:28px;opacity:1">🌟</div>
+          <div class="avatar-option" title="7 días seguidos" style="font-size:28px" th:classappend="${user.streak>=7}?'selected':''">🔥</div>
+          <div class="avatar-option" title="100 XP" style="font-size:28px" th:classappend="${user.puntos>=100}?'selected':''">⚡</div>
+          <div class="avatar-option" title="Nivel 5" style="font-size:28px;opacity:0.3">🦸</div>
+          <div class="avatar-option" title="Emoción registrada" style="font-size:28px">😊</div>
+          <div class="avatar-option" title="Liga Oro" style="font-size:28px;opacity:0.3">🥇</div>
+          <div class="avatar-option" title="Misión completada" style="font-size:28px;opacity:0.3">🎯</div>
+          <div class="avatar-option" title="30 días seguidos" style="font-size:28px;opacity:0.3">💫</div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin-top:10px;font-weight:700">Los logros bloqueados aparecen en gris</p>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: RANKING                   -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view" id="page-ranking">
+      <div class="section-header" style="margin-bottom:14px">
+        <div class="section-title">📊 Ranking</div>
+        <span class="league-badge league-gold">⭐ Liga Oro</span>
+      </div>
+      <div class="card" style="padding:16px">
+        <div id="leaderboardList">
+          <div class="leaderboard-row lb-you">
+            <div class="lb-rank gold">🥇</div>
+            <div class="lb-avatar" id="lbMyAvatar">🦊</div>
+            <div class="lb-name" th:text="${user.username}">Tú</div>
+            <div class="lb-xp" th:text="${user.puntos}+' XP'">0 XP</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank silver">🥈</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#FF9600,#FFD900)">🐯</div>
+            <div class="lb-name">AmigoFeliz</div>
+            <div class="lb-xp">892 XP</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank bronze">🥉</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#CE82FF,#1CB0F6)">🦋</div>
+            <div class="lb-name">Exploradora</div>
+            <div class="lb-xp">745 XP</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">4</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#FF4B4B,#FF9600)">🦁</div>
+            <div class="lb-name">Valiente99</div>
+            <div class="lb-xp">612 XP</div>
+          </div>
+          <div class="leaderboard-row">
+            <div class="lb-rank">5</div>
+            <div class="lb-avatar" style="background:linear-gradient(135deg,#58CC02,#1CB0F6)">🐧</div>
+            <div class="lb-name">PasoArtista</div>
+            <div class="lb-xp">500 XP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: AMIGOS                    -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view" id="page-amigos">
+      <div class="section-title" style="margin-bottom:14px">👥 Amigos</div>
+      <div class="card" style="padding:24px;text-align:center;color:var(--text3)">
+        <div style="font-size:48px;margin-bottom:12px">👥</div>
+        <p style="font-weight:700">¡Próximamente!</p>
+        <p style="font-size:13px;margin-top:6px">La función de amigos estará disponible pronto.</p>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════ -->
+    <!-- PAGE: NOTIFICACIONES            -->
+    <!-- ════════════════════════════════ -->
+    <div class="page-view" id="page-notificaciones">
+      <div class="section-title" style="margin-bottom:14px">🔔 Notificaciones</div>
+      <div id="notificacionesList">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── TEACHER LOGIN MODAL ── -->
+<div id="teacherLoginModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--card);border-radius:var(--radius-lg);padding:32px;width:340px;border:1px solid var(--border);position:relative">
+    <h2 style="font-family:'Fredoka One',cursive;font-size:22px;margin-bottom:6px">👩‍🏫 Panel Docente</h2>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:20px">Ingresa las credenciales de docente para continuar.</p>
+    <div class="form-group">
+      <label class="form-label">Usuario docente</label>
+      <input class="form-input" type="text" id="tlUser" placeholder="usuario_docente">
+    </div>
+    <div class="form-group" style="margin-top:12px">
+      <label class="form-label">Contraseña</label>
+      <input class="form-input" type="password" id="tlPass" placeholder="••••••••">
+    </div>
+    <div id="tlError" style="display:none;color:var(--red);font-size:12px;font-weight:700;margin-top:8px">
+      ❌ Credenciales incorrectas
+    </div>
+    <div style="display:flex;gap:10px;margin-top:20px">
+      <button class="btn btn-blue" style="flex:1" onclick="doTeacherLogin()">Entrar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeTeacherModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/seguirte.js"></script>
+<script>
+// ── Thymeleaf data ──
+const STREAK_COUNT = parseInt(document.querySelector('[th\\:text="${user.streak}"]')?.textContent || '0') ||
+                    parseInt('[[${user.streak}]]') || 0;
+
+// ── PAGE NAVIGATION ──
+const PAGE_TITLES = {
+  inicio: '🌟 Mi espacio',
+  misiones: '🎯 Misiones del día',
+  logros: '🏆 Mis Logros',
+  ranking: '📊 Ranking',
+  amigos: '👥 Amigos',
+  notificaciones: '🔔 Notificaciones'
+};
+
+function showPage(name, linkEl){
+  document.querySelectorAll('.page-view').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('page-'+name)?.classList.add('active');
+  if(linkEl) linkEl.classList.add('active');
+  document.getElementById('pageTitle').textContent = PAGE_TITLES[name]||'🌟 Mi espacio';
+  playClick();
+  if(name==='misiones') renderMissions('missionsContainer');
+  if(name==='notificaciones') renderNotifications();
+  // close sidebar on mobile + sync bottom nav
+  closeSidebar();
+  updateBottomNav(name);
+}
+
+// Sync bottom nav active state
+function updateBottomNav(name){
+  const MAP = {inicio:'inicio', misiones:'misiones', logros:'logros', ranking:'ranking', notificaciones:'notifs'};
+  document.querySelectorAll('.bottom-nav-item').forEach(b=>b.classList.remove('active'));
+  const key = MAP[name];
+  if(key) document.getElementById('bn-'+key)?.classList.add('active');
+  // show/hide badge
+  const unread = document.querySelectorAll('.notif-dot.unread').length;
+  const badge = document.getElementById('bnBadge');
+  if(badge){ badge.textContent=unread; badge.style.display=unread>0?'block':'none'; }
+}
+
+// Bottom nav calls navigateTo which calls showPage
+function navigateTo(name){ showPage(name, null); }
+
+// ── EMOTIONS: only once per 24h ──
+function handleEmo(btn){
+  if(hasRegisteredEmotionToday()){
+    showNotif('Ya registraste tu emoción hoy 😊','ℹ️','var(--blue)');
+    return;
+  }
+  const xp = parseInt(btn.dataset.xp || '10');
+  // visually select
+  document.querySelectorAll('.emo-btn').forEach(b=>{ b.disabled=true; b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  markEmotionRegistered();
+  // store for teacher panel
+  const stored = JSON.parse(localStorage.getItem('seguirte_student_data')||'{}');
+  stored.lastEmotion = btn.dataset.type;
+  stored.lastEmotionDate = todayKey();
+  stored.phone = localStorage.getItem('seguirte_phone_reg') || '';
+  localStorage.setItem('seguirte_student_data', JSON.stringify(stored));
+  const rect=btn.getBoundingClientRect();
+  floatXP(xp, rect.left, rect.top);
+  addLocalXP(xp);
+  showNotif('¡Estado de ánimo registrado! +'+xp+' XP','💖');
+  playSuccess();
+  document.getElementById('emoDoneMsg').style.display='block';
+  // Mostrar alerta de riesgo SOLO si emoción es MAL (RED)
+  const riskAlert = document.getElementById('riskAlert');
+  if(riskAlert){
+    riskAlert.style.display = (btn.dataset.type === 'RED') ? 'flex' : 'none';
+  }
+  // Submit to server via fetch (non-blocking)
+  fetch('/emotion', {
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:'type='+encodeURIComponent(btn.dataset.type)
+  }).catch(()=>{});
+}
+
+function initEmotionState(){
+  if(hasRegisteredEmotionToday()){
+    document.querySelectorAll('.emo-btn').forEach(b=>b.disabled=true);
+    const saved = JSON.parse(localStorage.getItem('seguirte_student_data')||'{}');
+    if(saved.lastEmotion){
+      document.querySelector(`.emo-btn[data-type="${saved.lastEmotion}"]`)?.classList.add('selected');
+    }
+    document.getElementById('emoDoneMsg').style.display='block';
+  }
+}
+
+// ── MISSIONS COUNT ──
+function updateMissionsCount(){
+  const missions=getDailyMissions();
+  const done=missions.filter(m=>m.done).length;
+  document.getElementById('missionsProgress').textContent=`${done}/4 completadas`;
+  const remaining = 4-done;
+  const badge = document.getElementById('missionsCount');
+  badge.textContent = remaining;
+  if(done===4){
+    showNotif('¡Todas las misiones completadas! 🎉','🏆');
+    playLevelUp();
+  }
+}
+
+// ── WEEK CALENDAR: green check if connected that day, resets weekly ──
+function renderWeekCalendar(){
+  const DAYS=['L','M','X','J','V','S','D'];
+  const cal=document.getElementById('weekCalendar');
+  if(!cal) return;
+  const connected = getWeekDays(); // array of 7 booleans [Mon..Sun]
+  const today=new Date();
+  const todayIdx=(today.getDay()+6)%7; // Mon=0..Sun=6
+  DAYS.forEach((d,i)=>{
+    const div=document.createElement('div');
+    div.className='week-day-cell';
+    const isToday = i===todayIdx;
+    const isDone = connected[i];
+    div.style.cssText=`
+      flex:1; aspect-ratio:1; border-radius:10px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+      background:${isDone?'rgba(88,204,2,0.2)':'var(--bg3)'};
+      border:2px solid ${isDone?'var(--green)':isToday?'var(--blue)':'var(--border)'};
+      font-size:11px;font-weight:800;
+      color:${isDone?'var(--green)':isToday?'var(--blue)':'var(--text3)'};
+    `;
+    div.innerHTML=`${isDone?'✅':'○'}<span>${d}</span>`;
+    cal.appendChild(div);
+  });
+}
+
+// ── NOTIFICATIONS (stored in localStorage) ──
+const NOTIFICATIONS = [
+  { id:1, msg:'¡Completaste todas las misiones del día!', emoji:'🏆', date:'Hoy', read:false },
+  { id:2, msg:'Tu racha es de 3 días seguidos. ¡Sigue así!', emoji:'🔥', date:'Ayer', read:true },
+  { id:3, msg:'Nuevo logro desbloqueado: Primera emoción registrada', emoji:'😊', date:'Hace 2 días', read:true },
+];
+
+function renderNotifications(){
+  const list = document.getElementById('notificacionesList');
+  if(!list) return;
+  list.innerHTML='';
+  if(NOTIFICATIONS.length===0){
+    list.innerHTML='<div class="card" style="padding:24px;text-align:center;color:var(--text3)"><div style="font-size:48px;margin-bottom:12px">🔔</div><p style="font-weight:700">Sin notificaciones</p></div>';
+    return;
+  }
+  NOTIFICATIONS.forEach(n=>{
+    const div=document.createElement('div');
+    div.className='notif-item';
+    div.style.opacity=n.read?'0.7':'1';
+    div.innerHTML=`
+      <div class="notif-dot ${n.read?'':'unread'}"></div>
+      <span style="font-size:22px">${n.emoji}</span>
+      <div style="flex:1">
+        <div style="font-weight:${n.read?'600':'800'};font-size:14px">${n.msg}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${n.date}</div>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function updateNotifBadge(){
+  const unread = NOTIFICATIONS.filter(n=>!n.read).length;
+  const badge = document.getElementById('notifBadge');
+  if(unread>0){
+    badge.style.display='';
+    badge.textContent=unread;
+  } else {
+    badge.style.display='none';
+  }
+}
+
+// ── TEACHER LOGIN MODAL ──
+// Simple credential check (in production this would be server-side)
+const TEACHER_CREDENTIALS = { user:'docente', pass:'seguirte360' };
+
+function showTeacherLogin(){
+  document.getElementById('teacherLoginModal').style.display='flex';
+}
+function closeTeacherModal(){
+  document.getElementById('teacherLoginModal').style.display='none';
+  document.getElementById('tlUser').value='';
+  document.getElementById('tlPass').value='';
+  document.getElementById('tlError').style.display='none';
+}
+function doTeacherLogin(){
+  const u=document.getElementById('tlUser').value.trim();
+  const p=document.getElementById('tlPass').value;
+  if(u===TEACHER_CREDENTIALS.user && p===TEACHER_CREDENTIALS.pass){
+    sessionStorage.setItem('teacher_auth','1');
+    window.location.href='/teacher';
+  } else {
+    document.getElementById('tlError').style.display='block';
+    playError();
+  }
+}
+
+// ── STREAK local (reinicia si no se conectó ayer) ──
+function getLocalStreak(){
+  const saved = localStorage.getItem('seguirte_streak_data');
+  if(!saved) return 0;
+  const {streak, lastDate} = JSON.parse(saved);
+  const today = todayKey();
+  if(lastDate === today) return streak;
+  // calcular ayer
+  const y = new Date(); y.setDate(y.getDate()-1);
+  const yesterday = y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+  if(lastDate === yesterday) return streak; // conectó ayer, streak sigue
+  return 0; // rompió la racha
+}
+function updateLocalStreak(){
+  const today = todayKey();
+  const saved = localStorage.getItem('seguirte_streak_data');
+  let streak = 0;
+  if(saved){
+    const data = JSON.parse(saved);
+    if(data.lastDate === today) return; // ya se actualizó hoy
+    const y = new Date(); y.setDate(y.getDate()-1);
+    const yesterday = y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+    streak = data.lastDate === yesterday ? data.streak + 1 : 1;
+  } else {
+    streak = 1;
+  }
+  localStorage.setItem('seguirte_streak_data', JSON.stringify({streak, lastDate: today}));
+}
+
+// ── XP local ──
+function getLocalXP(){
+  return parseInt(localStorage.getItem('seguirte_xp') || '0');
+}
+function addLocalXP(amount){
+  const cur = getLocalXP();
+  const next = cur + amount;
+  localStorage.setItem('seguirte_xp', next);
+  // Actualizar todos los displays de XP
+  document.querySelectorAll('[data-xp-display]').forEach(el => el.textContent = next);
+  // Actualizar barra XP
+  const pct = next % 100;
+  const bar = document.getElementById('heroXpBar');
+  if(bar) bar.style.width = pct + '%';
+  const ring = document.getElementById('levelRing');
+  if(ring) ring.style.strokeDashoffset = 251.2*(1-pct/100);
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  initParticles();
+
+  // Racha local (corregida)
+  updateLocalStreak();
+  const streak = getLocalStreak();
+  document.querySelectorAll('#streakTopbar, #streakCard').forEach(el => el.textContent = streak);
+
+  // XP local (corregida)
+  const xp = getLocalXP();
+  document.querySelectorAll('[data-xp-display]').forEach(el => el.textContent = xp);
+
+  // XP ring animation
+  const pct = xp % 100;
+  const ring = document.getElementById('levelRing');
+  if(ring){ setTimeout(()=>{ ring.style.strokeDashoffset=251.2*(1-pct/100); },400); }
+  const bar = document.getElementById('heroXpBar');
+  if(bar){ setTimeout(()=>{ bar.style.width = pct+'%'; },400); }
+
+  // Missions count
+  updateMissionsCount();
+
+  // Emotion state
+  initEmotionState();
+
+  // Week calendar
+  renderWeekCalendar();
+
+  // Notif badge
+  updateNotifBadge();
+
+  // Avatar from localStorage
+  const av=localStorage.getItem('seguirte_avatar')||'🦊';
+  document.getElementById('sidebarAvatar').textContent=av;
+  document.getElementById('lbMyAvatar').textContent=av;
+
+  // Welcome XP float on first load
+  if(!sessionStorage.getItem('welcomed')){
+    setTimeout(()=>{
+      floatXP(5, window.innerWidth/2, window.innerHeight*0.3);
+      addLocalXP(5);
+      sessionStorage.setItem('welcomed','1');
+    },800);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+package com.seguirte360.repo;import org.springframework.data.jpa.repository.JpaRepository;import com.seguirte360.model.*;import java.util.*;public interface EmotionRepo extends JpaRepository<Emotion,Long>{List<Emotion> findByUsuario(Usuario u);}

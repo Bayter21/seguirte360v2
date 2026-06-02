@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Seguirte360 · Crear Cuenta</title>
+<link rel="stylesheet" href="/css/seguirte.css">
+<style>
+.step-indicator {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 28px;
+}
+.step {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px;
+  background: var(--bg3); color: var(--text3);
+  border: 2px solid var(--border);
+  transition: all 0.3s ease; flex-shrink: 0;
+}
+.step.active { background: var(--green); color: #fff; border-color: var(--green); }
+.step.done { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+.step-line {
+  flex: 1; height: 2px; background: var(--border);
+  transition: background 0.3s ease;
+}
+.step-line.done { background: var(--green); }
+.step-form { display: none; }
+.step-form.active { display: block; animation: slide-in 0.3s ease; }
+@keyframes slide-in {
+  from { opacity:0; transform: translateX(20px); }
+  to   { opacity:1; transform: translateX(0); }
+}
+.avatar-grid-reg {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  margin-bottom: 8px;
+}
+.avatar-opt-reg {
+  aspect-ratio:1; border-radius: 12px;
+  border: 2.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; cursor: pointer;
+  background: var(--bg3);
+  transition: all 0.15s ease;
+}
+.avatar-opt-reg:hover { transform: scale(1.1); border-color: var(--green); }
+.avatar-opt-reg.sel { border-color: var(--green); background: rgba(88,204,2,0.12); }
+.register-type {
+  display: flex; gap: 10px; margin-bottom: 20px;
+}
+.type-btn {
+  flex:1; padding:12px; border-radius: var(--radius);
+  border: 2px solid var(--border); background: var(--bg3);
+  cursor: pointer; text-align:center;
+  color: var(--text2); font-weight:800; font-size:13px;
+  transition: all 0.2s;
+}
+.type-btn:hover { border-color:var(--blue); }
+.type-btn.active { border-color:var(--blue); background:rgba(28,176,246,0.12); color:var(--blue); }
+.back-link {
+  display:block; text-align:center; margin-top:14px;
+  color:var(--text3); font-size:13px; text-decoration:none; font-weight:700;
+}
+.back-link:hover { color:var(--text); }
+.strength-bar {
+  height: 6px; background: var(--bg3); border-radius: 99px;
+  margin-top: 6px; overflow:hidden;
+}
+.strength-fill {
+  height:100%; border-radius:99px; transition: width 0.3s ease, background 0.3s ease;
+  width: 0%;
+}
+.strength-text { font-size:11px; color:var(--text3); margin-top:4px; }
+.phone-hint { font-size:11px; color:var(--text3); margin-top:4px; }
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<div class="auth-page">
+  <div class="auth-card" style="max-width:460px">
+    <div class="auth-logo" style="margin-bottom:20px">
+      <div class="auth-logo-icon" style="width:56px;height:56px;font-size:28px">🦉</div>
+      <h1 style="font-size:26px">Crear cuenta</h1>
+      <p>Únete a Seguirte360 hoy</p>
+    </div>
+
+    <!-- Steps: now 4 steps (added phone step) -->
+    <div class="step-indicator">
+      <div class="step active" id="s1">1</div>
+      <div class="step-line" id="l1"></div>
+      <div class="step" id="s2">2</div>
+      <div class="step-line" id="l2"></div>
+      <div class="step" id="s3">3</div>
+      <div class="step-line" id="l3"></div>
+      <div class="step" id="s4">4</div>
+    </div>
+
+    <form th:action="@{/register}" method="post" id="regForm">
+
+      <!-- Step 1: Role & Basic info -->
+      <div class="step-form active" id="form1">
+        <p style="font-weight:800;margin-bottom:12px">¿Cuál es tu rol?</p>
+        <div class="register-type">
+          <div class="type-btn active" data-type="STUDENT" onclick="setType('STUDENT',this)">
+            🎒<br>Estudiante
+          </div>
+          <div class="type-btn" data-type="TEACHER" onclick="setType('TEACHER',this)">
+            👩‍🏫<br>Docente
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nombre de usuario</label>
+          <input class="form-input" type="text" name="username" id="regUser" placeholder="nombre_unico" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input class="form-input" type="email" name="email" id="regEmail" placeholder="correo@ejemplo.com">
+        </div>
+        <button type="button" class="btn btn-green btn-full" onclick="nextStep(2)">
+          Siguiente →
+        </button>
+        <a href="/login" class="back-link">← Ya tengo cuenta</a>
+      </div>
+
+      <!-- Step 2: Phone (new!) -->
+      <div class="step-form" id="form2">
+        <p style="font-weight:800;margin-bottom:8px">📱 Número de celular</p>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:16px">
+          Este número permitirá al docente contactarte si necesitas apoyo.
+        </p>
+        <div class="form-group">
+          <label class="form-label">Número de celular</label>
+          <input class="form-input" type="tel" name="telefono" id="regPhone" placeholder="300 123 4567" maxlength="15">
+          <div class="phone-hint">Incluye indicativo de país si es necesario (ej: +57 300 123 4567)</div>
+        </div>
+        <button type="button" class="btn btn-green btn-full" onclick="nextStep(3)">
+          Siguiente →
+        </button>
+        <button type="button" class="btn btn-ghost btn-full" style="margin-top:8px" onclick="nextStep(1)">
+          ← Volver
+        </button>
+      </div>
+
+      <!-- Step 3: Password -->
+      <div class="step-form" id="form3">
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input class="form-input" type="password" name="password" id="regPass" placeholder="Mínimo 6 caracteres" oninput="checkStrength(this.value)" required>
+          <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+          <div class="strength-text" id="strengthText">Escribe una contraseña</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar contraseña</label>
+          <input class="form-input" type="password" id="regPass2" placeholder="Repite tu contraseña">
+        </div>
+        <button type="button" class="btn btn-green btn-full" onclick="nextStep(4)">
+          Siguiente →
+        </button>
+        <button type="button" class="btn btn-ghost btn-full" style="margin-top:8px" onclick="nextStep(2)">
+          ← Volver
+        </button>
+      </div>
+
+      <!-- Step 4: Avatar -->
+      <div class="step-form" id="form4">
+        <p style="font-weight:800;margin-bottom:12px">Elige tu avatar 🎨</p>
+        <div class="avatar-grid-reg" id="avatarGrid">
+          <!-- filled by JS -->
+        </div>
+        <input type="hidden" name="role" id="roleHidden" value="STUDENT">
+        <input type="hidden" name="avatar" id="avatarHidden" value="🦊">
+        <input type="hidden" name="telefono_hidden" id="telefonoHidden" value="">
+        <div style="margin-top:20px">
+          <button type="submit" class="btn btn-green btn-full">
+            🚀 Crear mi cuenta
+          </button>
+        </div>
+        <button type="button" class="btn btn-ghost btn-full" style="margin-top:8px" onclick="nextStep(3)">
+          ← Volver
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/seguirte.js"></script>
+<script>
+const AVATARS=['🦊','🐺','🐯','🦁','🐸','🐧','🦜','🐦','🦋','🐬'];
+let currentStep=1;
+const TOTAL_STEPS=4;
+
+function renderAvatars(){
+  const g=document.getElementById('avatarGrid');
+  g.innerHTML='';
+  AVATARS.forEach((a,i)=>{
+    const d=document.createElement('div');
+    d.className='avatar-opt-reg'+(i===0?' sel':'');
+    d.textContent=a;
+    d.onclick=()=>{
+      document.querySelectorAll('.avatar-opt-reg').forEach(x=>x.classList.remove('sel'));
+      d.classList.add('sel');
+      document.getElementById('avatarHidden').value=a;
+      playClick();
+    };
+    g.appendChild(d);
+  });
+}
+
+function setType(type,el){
+  document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('roleHidden').value=type;
+  playClick();
+}
+
+function nextStep(n){
+  if(n===2){
+    if(!document.getElementById('regUser').value.trim()){
+      showNotif('Escribe un nombre de usuario','⚠️','var(--red)'); playError(); return;
+    }
+  }
+  if(n===3){
+    // phone is optional but we save it
+    const phone=document.getElementById('regPhone').value.trim();
+    document.getElementById('telefonoHidden').value=phone;
+    // store in localStorage for contact purposes
+    if(phone) localStorage.setItem('seguirte_phone_reg', phone);
+  }
+  if(n===4){
+    const p1=document.getElementById('regPass').value;
+    const p2=document.getElementById('regPass2').value;
+    if(p1.length<6){ showNotif('La contraseña debe tener 6+ caracteres','⚠️','var(--red)'); playError(); return; }
+    if(p1!==p2){ showNotif('Las contraseñas no coinciden','❌','var(--red)'); playError(); return; }
+  }
+  playSuccess();
+  document.getElementById('form'+currentStep).classList.remove('active');
+  document.getElementById('s'+currentStep).classList.remove('active');
+  document.getElementById('s'+currentStep).classList.add('done');
+  document.getElementById('s'+currentStep).textContent='✓';
+  if(n>currentStep) document.getElementById('l'+(n-1))?.classList.add('done');
+  currentStep=n;
+  document.getElementById('form'+n).classList.add('active');
+  document.getElementById('s'+n).classList.add('active');
+}
+
+function checkStrength(pw){
+  const fill=document.getElementById('strengthFill');
+  const txt=document.getElementById('strengthText');
+  let score=0;
+  if(pw.length>=6) score++;
+  if(pw.length>=10) score++;
+  if(/[A-Z]/.test(pw)) score++;
+  if(/[0-9]/.test(pw)) score++;
+  if(/[^a-zA-Z0-9]/.test(pw)) score++;
+  const pct=[0,20,40,65,85,100][score];
+  const colors=['','#FF4B4B','#FF9600','#FFD900','#58CC02','#58CC02'];
+  const labels=['','Muy débil','Débil','Regular','Fuerte','Muy fuerte'];
+  fill.style.width=pct+'%';
+  fill.style.background=colors[score];
+  txt.textContent=labels[score];
+  txt.style.color=colors[score];
+}
+
+document.addEventListener('DOMContentLoaded',()=>{ initParticles(); renderAvatars(); });
+</script>
+</body>
+</html>
