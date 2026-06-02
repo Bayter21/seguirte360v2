@@ -36,19 +36,10 @@ html, body {
   overflow-x: hidden;
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 /* ── TABLE WRAP (siempre scrollable) ── */
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
 .table-wrap table { min-width: 480px; }
 
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg2); }
@@ -174,13 +165,6 @@ html, body {
 .main-content {
   margin-left: 260px;
   flex: 1;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  padding: 32px;
-  max-width: 100%;
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
   padding: 28px 24px;
   max-width: 100%;
   min-width: 0;
@@ -192,10 +176,6 @@ html, body {
 }
 @media (max-width: 900px) {
   .grid-2 { grid-template-columns: 1fr; }
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 }
 
 /* ── TOP BAR ── */

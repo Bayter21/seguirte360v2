@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.seguirte360.controller;
 
 import org.springframework.stereotype.*;
@@ -48,13 +47,3 @@ public class AuthController {
         return "redirect:/login";
     }
 }
-=======
-package com.seguirte360.controller;import org.springframework.stereotype.*;import org.springframework.web.bind.annotation.*;import com.seguirte360.repo.*;import com.seguirte360.model.*;import org.springframework.security.crypto.bcrypt.*;
-@Controller public class AuthController{
-private final UsuarioRepo repo; private final BCryptPasswordEncoder enc;
-public AuthController(UsuarioRepo r, BCryptPasswordEncoder e){repo=r;enc=e;}
-@GetMapping("/register") public String reg(){return "register";}
-@PostMapping("/register") public String save(@RequestParam String username,@RequestParam String password){
-Usuario u=new Usuario(); u.setUsername(username); u.setPassword(enc.encode(password)); u.setRole("TEACHER"); u.setNivel(1); u.setPuntos(0); u.setStreak(0); repo.save(u);
-return "redirect:/login";}}
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c

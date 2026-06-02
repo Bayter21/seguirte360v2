@@ -19,75 +19,6 @@
   background: rgba(28,176,246,0.15); color: var(--teacher-accent);
 }
 .teacher-sidebar .nav-link.active::before { background: var(--teacher-accent); }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-.top-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
-.ts-card {
-  background: var(--card2); border-radius: var(--radius); padding: 20px;
-  border: 1px solid var(--border); position:relative; overflow:hidden;
-  transition: transform 0.2s ease;
-}
-.ts-card:hover { transform: translateY(-3px); }
-.ts-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; }
-.ts-card.blue::before { background:var(--teacher-accent); }
-.ts-card.green::before { background:var(--green); }
-.ts-card.yellow::before { background:var(--yellow); }
-.ts-card.purple::before { background:var(--teacher-accent2); }
-.ts-val { font-family:'Fredoka One',cursive; font-size:38px; }
-.ts-lbl { font-size:12px; color:var(--text3); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
-.ts-icon { position:absolute; right:16px; top:16px; font-size:32px; opacity:0.3; }
-.ts-change { font-size:11px; font-weight:700; margin-top:4px; }
-.ts-change.up { color:var(--green); }
-.ts-change.down { color:var(--red); }
-/* Chart bars */
-.chart-bar-wrap { display:flex; align-items:flex-end; gap:6px; height:120px; padding:0 4px; }
-.chart-bar {
-  flex:1; border-radius:6px 6px 0 0;
-  background: linear-gradient(to top, var(--teacher-accent), rgba(28,176,246,0.3));
-  transition: height 1s cubic-bezier(0.34,1.56,0.64,1);
-  position:relative; min-height:6px; cursor:pointer;
-}
-.chart-bar:hover { filter:brightness(1.2); }
-.chart-bar-label { font-size:10px; text-align:center; color:var(--text3); font-weight:700; }
-/* Emotion chart */
-.emo-bar-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-.emo-bar-row:last-child { margin-bottom:0; }
-.emo-bar-label { width:80px; font-size:13px; font-weight:700; }
-.emo-bar-track { flex:1; background:var(--bg3); border-radius:99px; height:12px; overflow:hidden; }
-.emo-bar-fill { height:100%; border-radius:99px; transition: width 1s ease; }
-.emo-bar-pct { width:36px; font-size:12px; font-weight:700; color:var(--text3); text-align:right; }
-/* Student table */
-.student-row { cursor:pointer; }
-.student-row:hover td { background:rgba(28,176,246,0.05); }
-.stu-avatar {
-  width:34px;height:34px;border-radius:50%;
-  display:inline-flex;align-items:center;justify-content:center;
-  font-size:18px;
-  background:linear-gradient(135deg,var(--teacher-accent),var(--teacher-accent2));
-}
-.xp-mini-bar { background:var(--bg3); border-radius:99px; height:8px; overflow:hidden; min-width:80px; }
-.xp-mini-fill { height:100%; border-radius:99px; background:var(--green); transition:width 1s ease; }
-.risk-badge {
-  display:inline-flex;align-items:center;gap:4px;
-  padding:3px 10px; border-radius:99px; font-size:11px; font-weight:800;
-}
-.risk-ok { background:rgba(88,204,2,0.15); color:var(--green); }
-.risk-warn { background:rgba(255,217,0,0.15); color:var(--yellow); }
-.risk-alert { background:rgba(255,75,75,0.15); color:var(--red); }
-/* Tab bar */
-.tab-bar {
-  display:flex; gap:4px;
-  background:var(--bg3); border-radius:var(--radius); padding:4px;
-  margin-bottom:20px;
-}
-.tab-item {
-  flex:1; padding:10px 8px; border-radius:12px;
-  border:none; background:none; color:var(--text2);
-  font-family:'Nunito',sans-serif; font-weight:800; font-size:13px;
-  cursor:pointer; transition:all 0.2s; text-align:center;
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 /* ── TOP STATS: responsive grid ── */
 .top-stats {
   display:grid;
@@ -197,87 +128,37 @@
   font-family:'Nunito',sans-serif; font-weight:800; font-size:12px;
   cursor:pointer; transition:all 0.2s; text-align:center;
   white-space:nowrap;
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 }
 .tab-item.active { background:var(--card); color:var(--text); }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; animation:slide-up 0.3s ease; }
 @keyframes slide-up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-/* Alert students */
-.alert-student {
-  display:flex;align-items:center;gap:12px;
-  padding:12px;border-radius:var(--radius);
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 
 /* ── ALERT STUDENTS ── */
 .alert-student {
   display:flex; align-items:center; gap:10px;
   padding:11px; border-radius:var(--radius);
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
   background:rgba(255,75,75,0.08);
   border:1px solid rgba(255,75,75,0.2);
   margin-bottom:8px;
 }
 .alert-student:last-child { margin-bottom:0; }
 
-<<<<<<< HEAD
 /* ── CONTACT MODAL ── */
-=======
-<<<<<<< HEAD
-/* Contact modal */
-=======
-/* ── CONTACT MODAL ── */
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 .modal-overlay {
   display:none; position:fixed; inset:0;
   background:rgba(0,0,0,0.75); z-index:999;
   align-items:center; justify-content:center;
-<<<<<<< HEAD
   padding:16px;
-=======
-<<<<<<< HEAD
-=======
-  padding:16px;
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 }
 .modal-overlay.open { display:flex; }
 .modal-box {
   background:var(--card); border-radius:var(--radius-lg);
-<<<<<<< HEAD
   padding:24px; width:100%; max-width:360px;
-=======
-<<<<<<< HEAD
-  padding:28px; width:380px; max-width:90vw;
-=======
-  padding:24px; width:100%; max-width:360px;
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
   border:1px solid var(--border);
 }
 .contact-info-row {
   display:flex; align-items:center; gap:10px;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  padding:10px 14px; border-radius:10px;
-  background:var(--bg3); border:1px solid var(--border);
-  margin-bottom:8px; font-size:14px;
-}
-.contact-info-label { font-size:11px; color:var(--text3); font-weight:700; margin-bottom:4px; }
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
   padding:10px 12px; border-radius:10px;
   background:var(--bg3); border:1px solid var(--border);
   margin-bottom:8px; font-size:13px;
@@ -297,10 +178,6 @@
   .ts-icon { font-size:20px; }
   .tab-item { font-size:11px; padding:8px 8px; }
 }
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
 </style>
 </head>
 <body>
@@ -410,25 +287,6 @@
 
     <!-- TAB: RESUMEN -->
     <div class="tab-panel active" id="tab-resumen">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <div class="grid-2" style="gap:20px">
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">📈 XP por día (esta semana)</div>
-          <div class="chart-bar-wrap" id="xpChart"></div>
-          <div style="display:flex;gap:6px;margin-top:6px" id="xpChartLabels"></div>
-        </div>
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">💭 Estado de ánimo general</div>
-          <div id="moodChart"></div>
-        </div>
-      </div>
-      <div class="card" style="padding:20px;margin-top:20px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-          <div style="font-weight:800">🎯 Misiones completadas hoy</div>
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
       <div class="grid-2 teacher-grid-2" style="gap:16px">
         <div class="card" style="padding:18px">
           <div style="font-weight:800;margin-bottom:12px;font-size:14px">📈 XP por día (esta semana)</div>
@@ -443,23 +301,11 @@
       <div class="card" style="padding:18px;margin-top:16px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
           <div style="font-weight:800;font-size:14px">🎯 Misiones completadas hoy</div>
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
           <div style="font-size:13px;color:var(--text3)">
             <span id="missionsNum">—</span>/<span id="missionsTot">—</span>
           </div>
         </div>
-<<<<<<< HEAD
         <div style="background:var(--bg3);border-radius:99px;height:10px;overflow:hidden">
-=======
-<<<<<<< HEAD
-        <div style="background:var(--bg3);border-radius:99px;height:12px;overflow:hidden">
-=======
-        <div style="background:var(--bg3);border-radius:99px;height:10px;overflow:hidden">
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
           <div id="missionsFill" style="height:100%;border-radius:99px;background:var(--green);width:0%;transition:width 1s ease"></div>
         </div>
       </div>
@@ -467,54 +313,15 @@
 
     <!-- TAB: ALUMNOS -->
     <div class="tab-panel" id="tab-alumnos">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <div class="card" style="padding:20px">
-        <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-          <input class="form-input" id="searchInput" placeholder="🔍 Buscar alumno..." oninput="filterStudents()" style="flex:1;min-width:150px">
-          <select class="form-input" id="filterRisk" onchange="filterStudents()" style="width:140px">
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
       <div class="card" style="padding:18px">
         <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
           <input class="form-input" id="searchInput" placeholder="🔍 Buscar alumno..." oninput="filterStudents()" style="flex:1;min-width:140px">
           <select class="form-input" id="filterRisk" onchange="filterStudents()" style="width:130px">
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
             <option value="">Todos</option>
             <option value="ok">✅ Bien</option>
             <option value="warn">⚠️ Atención</option>
             <option value="alert">🚨 Alerta</option>
           </select>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-          <span style="font-size:12px;color:var(--text3);align-self:center;font-weight:700">
-            <span id="studentCount">—</span> alumnos
-          </span>
-        </div>
-        <div style="overflow-x:auto">
-          <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
-            <thead>
-              <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase;letter-spacing:0.5px">
-                <th style="padding:8px;text-align:left">#</th>
-                <th style="padding:8px;text-align:left">Alumno</th>
-                <th style="padding:8px;text-align:left">Nivel</th>
-                <th style="padding:8px;text-align:left">XP</th>
-                <th style="padding:8px;text-align:left">Racha</th>
-                <th style="padding:8px;text-align:left">Estado</th>
-              </tr>
-            </thead>
-            <tbody id="studentsBody">
-              <!-- from Thymeleaf -->
-              <tr th:each="s,i : ${students}" class="student-row">
-                <td style="padding:8px;font-family:'Fredoka One',cursive;font-size:14px" th:text="${i.index+1}">1</td>
-                <td style="padding:8px">
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
           <span style="font-size:12px;color:var(--text3);font-weight:700;white-space:nowrap">
             <span id="studentCount">—</span> alumnos
           </span>
@@ -535,84 +342,27 @@
               <tr th:each="s,i : ${students}" class="student-row">
                 <td style="padding:6px 8px;font-family:'Fredoka One',cursive;font-size:14px" th:text="${i.index+1}">1</td>
                 <td style="padding:6px 8px">
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
                   <div style="display:flex;align-items:center;gap:8px">
                     <div class="stu-avatar" th:text="${s.avatar}?:' '">🦊</div>
                     <span style="font-weight:800" th:text="${s.username}">Alumno</span>
                   </div>
                 </td>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-                <td style="padding:8px;color:var(--blue);font-weight:800" th:text="${s.nivel}">1</td>
-                <td style="padding:8px;color:var(--yellow);font-weight:800" th:text="${s.puntos}+' XP'">0 XP</td>
-                <td style="padding:8px;color:var(--orange)">🔥 <span th:text="${s.streak}">0</span></td>
-                <td style="padding:8px">
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
                 <td style="padding:6px 8px;color:var(--blue);font-weight:800" th:text="${s.nivel}">1</td>
                 <td style="padding:6px 8px;color:var(--yellow);font-weight:800" th:text="${s.puntos}+' XP'">0 XP</td>
                 <td style="padding:6px 8px;color:var(--orange)">🔥 <span th:text="${s.streak}">0</span></td>
                 <td style="padding:6px 8px">
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
                   <span th:class="${s.streak>=5?'risk-badge risk-ok':s.streak>=2?'risk-badge risk-warn':'risk-badge risk-alert'}"
                         th:text="${s.streak>=5?'✅ Bien':s.streak>=2?'⚠️ Atención':'🚨 Alerta'}">✅ Bien</span>
                 </td>
               </tr>
             </tbody>
-<<<<<<< HEAD
           </table>
-=======
-<<<<<<< HEAD
-          </table></div></div>
-=======
-          </table>
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
         </div>
       </div>
     </div>
 
     <!-- TAB: EMOCIONES -->
     <div class="tab-panel" id="tab-emociones">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <div class="grid-2" style="gap:20px">
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">📊 Distribución de emociones</div>
-          <div id="emoDistChart"></div>
-        </div>
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">📋 Registro reciente</div>
-          <div style="overflow-x:auto">
-            <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
-              <thead>
-                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
-                  <th style="padding:8px;text-align:left">Alumno</th>
-                  <th style="padding:8px;text-align:left">Emoción</th>
-                  <th style="padding:8px;text-align:left">Fecha</th>
-                  <th style="padding:8px;text-align:left">Tendencia</th>
-                </tr>
-              </thead>
-              <tbody id="emotionLogBody">
-                <!-- from Thymeleaf -->
-                <tr th:each="e : ${emotions}">
-                  <td style="padding:8px;font-weight:700" th:text="${e.usuario?.username}">—</td>
-                  <td style="padding:8px" th:text="${e.type}">—</td>
-                  <td style="padding:8px;font-size:12px;color:var(--text3)" th:text="${e.fecha}">—</td>
-                  <td style="padding:8px">→</td>
-                </tr>
-              </tbody>
-            </table></div></div>
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
       <div class="grid-2 teacher-grid-2" style="gap:16px">
         <div class="card" style="padding:18px">
           <div style="font-weight:800;margin-bottom:12px;font-size:14px">📊 Distribución de emociones</div>
@@ -639,10 +389,6 @@
                 </tr>
               </tbody>
             </table>
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
           </div>
         </div>
       </div>
@@ -650,38 +396,6 @@
 
     <!-- TAB: PROGRESO -->
     <div class="tab-panel" id="tab-progreso">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <div class="grid-2" style="gap:20px">
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">🏅 Top alumnos por XP</div>
-          <div style="overflow-x:auto">
-            <div class="table-wrap"><table style="width:100%;border-collapse:collapse">
-              <thead>
-                <tr style="font-size:11px;color:var(--text3);font-weight:800;text-transform:uppercase">
-                  <th style="padding:8px">#</th>
-                  <th style="padding:8px;text-align:left">Alumno</th>
-                  <th style="padding:8px;text-align:left">Nivel</th>
-                  <th style="padding:8px;text-align:left">XP</th>
-                  <th style="padding:8px;text-align:left">Racha</th>
-                  <th style="padding:8px;text-align:left">Estado</th>
-                </tr>
-              </thead>
-              <tbody id="topStudentsBody"></tbody>
-            </table></div></div>
-          </div>
-        </div>
-        <div class="card" style="padding:20px">
-          <div style="font-weight:800;margin-bottom:14px">📊 Nivel por alumno</div>
-          <div class="chart-bar-wrap" id="levelChart" style="height:160px"></div>
-          <div style="display:flex;gap:6px;margin-top:6px" id="levelChartLabels"></div>
-        </div>
-      </div>
-      <div class="card" style="padding:20px;margin-top:20px">
-        <div style="font-weight:800;margin-bottom:14px">🏆 Distribución de ligas</div>
-=======
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
       <div class="grid-2 teacher-grid-2" style="gap:16px">
         <div class="card" style="padding:18px">
           <div style="font-weight:800;margin-bottom:12px;font-size:14px">🏅 Top alumnos por XP</div>
@@ -709,10 +423,6 @@
       </div>
       <div class="card" style="padding:18px;margin-top:16px">
         <div style="font-weight:800;margin-bottom:12px;font-size:14px">🏆 Distribución de ligas</div>
-<<<<<<< HEAD
-=======
->>>>>>> 1aa30861f9faad6d69ef6fe8c194cb885d06d0fd
->>>>>>> d1afb8a2d6ff0391480e35400c59fef03657533c
         <div id="leagueChart"></div>
       </div>
     </div>
